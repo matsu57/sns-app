@@ -32,6 +32,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'ffi', '~> 1.15.0'
 
 gem 'annotate'
+gem 'better_errors'
+gem 'binding_of_caller'
 gem 'devise'
 gem 'hamlit'
 
