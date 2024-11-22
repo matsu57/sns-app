@@ -1,0 +1,37 @@
+@import './variables';
+
+.form {
+  margin: 35px 16px;
+  position: relative;
+
+  &_label {
+    font-size: 11px;
+    color: #979797;
+  }
+
+  &_text {
+    font-size: 16px;
+    width: 100%;
+    margin: 4px 0px 20px;
+    padding: 9px 0;
+    border-bottom: 1px solid #9E9E9E;
+  }
+
+  &_link {
+    margin-bottom: 20px;
+    color: #CCC;
+    display: block;
+    text-align: right;
+    font-size: 11px;
+  }
+
+  &_button {
+    margin-top: 90px;
+    width: 100%;
+    border: none;
+    font-size: 14px;
+    padding: 14px;
+    background-color: $primary-color;
+  }
+
+}

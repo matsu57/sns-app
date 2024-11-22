@@ -1,7 +1,9 @@
 @import 'variables';
 @import 'flash';
+@import 'form';
 
 html {
+  font-family: $font-family;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -28,6 +30,20 @@ body {
 a{
   text-decoration: none;
   color: $text-base-color;
+}
+
+input, select {
+  font-family: inherit;
+  border: none;
+}
+
+.mv {
+  background-image: url(login-bg.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  width: 100%;
+  height: 298px;
 }
 
 .container {
