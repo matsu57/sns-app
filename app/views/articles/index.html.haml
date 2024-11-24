@@ -1,1 +1,29 @@
-%h1 Hello world
+.container
+  = link_to new_article_path do
+    = image_tag 'photo-camera.svg'
+  - @articles.each do |article|
+    .article
+      .article_header
+        .article_header_userImage
+          = image_tag article.user.avatar_image
+        .article_header_info
+          .article_header_userName
+            = article.user.username
+          .article_header_time
+            = article.created_at
+      .article_body
+        .article_body_image
+          - article.images.each do |image|
+            = image_tag(image, width:100)
+        .article_body_icon
+          .article_body_icon_heart
+            = image_tag 'heart.svg'
+          .article_body_icon_comment
+            = image_tag 'comment.svg'
+          .article_body_icon_share
+            = image_tag 'share.svg'
+        .article_body_likeCount
+          aaaaaaaaaaa
+        .article_body_content
+          %p= article.user.username
+          %p= article.content
