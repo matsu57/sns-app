@@ -9,12 +9,17 @@
     color: #979797;
   }
 
-  &_text {
+  &_text, &_textarea {
     font-size: 16px;
     width: 100%;
     margin: 4px 0px 20px;
     padding: 9px 0;
     border-bottom: 1px solid #9E9E9E;
+  }
+
+  &_textarea{
+    resize: vertical;
+    // height: 44px;
   }
 
   &_link {
@@ -32,6 +37,19 @@
     font-size: 14px;
     padding: 14px;
     background-color: $primary-color;
+  }
+
+  &_album {
+    margin-top: 20px;
+    width: 100%;
+    border: none;
+    font-size: 14px;
+    padding: 14px;
+    background-color: $primary-color;
+  }
+
+  &_submit {
+    
   }
 
 }

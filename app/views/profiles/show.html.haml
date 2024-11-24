@@ -1,10 +1,10 @@
 .container.profilePage
-  .profilePage_header
-    .profilePage_header_back
+  .profilePage_header.header
+    .header_left
       = link_to 'back', root_path
-    .profilePage_header_userName
+    .header_userName
       = current_user.username
-    .profilePage_header_actionButton
+    .header_right
       = link_to 'log out', destroy_user_session_path, method: :delete
   .profilePage_body
     .profilePage_body_userImage
