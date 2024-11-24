@@ -1,0 +1,21 @@
+.container.articlePage
+  .articlePage_header.header
+    .header_left.color-accent
+      = link_to 'Canc', root_path
+    .header_userName
+      = current_user.username
+    .header_right
+      = button_tag("Post", type: "submit", form: "post_form", class: "form_submit color-gray")
+
+  .articlePage_body
+    %ul
+      - @article.errors.full_messages.each do |message|
+        / @article.errors.full_messagesにすべてのエラーメッセージが配列で入っている
+        %li= message
+    = form_with(model: @article, id: "post_form", local: true) do |f|
+      %div
+        = f.text_area :content, class: "form_textarea", placeholder: "What's on your mind ?"
+      %div
+        = f.label :images, "Album", class: "form_album"
+      %div
+        = f.file_field :images, multiple: true, class: "hidden"
