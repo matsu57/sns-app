@@ -14,7 +14,7 @@
       .article_body
         .article_body_image
           - article.images.each do |image|
-            = image_tag(image, width:100)
+            = image_tag(image)
         .article_body_icon
           .article_body_icon_heart
             = image_tag 'heart.svg'
@@ -27,3 +27,4 @@
         .article_body_content
           %p= article.user.username
           %p= article.content
+        = link_to '削除する', article_path(article), data: {method: 'delete', confirm: '本当に削除してもよろしいですか?'}
