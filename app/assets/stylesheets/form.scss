@@ -1,7 +1,6 @@
 @import './variables';
 
 .form {
-  margin: 35px 16px;
   position: relative;
 
   &_label {
@@ -39,14 +38,14 @@
     background-color: $primary-color;
   }
 
-  &_album {
-    margin-top: 20px;
-    width: 100%;
-    border: none;
-    font-size: 14px;
-    padding: 14px;
-    background-color: $primary-color;
-  }
+  // &_album {
+  //   margin-top: 20px;
+  //   width: 100%;
+  //   border: none;
+  //   font-size: 14px;
+  //   padding: 14px;
+  //   background-color: $primary-color;
+  // }
 
   &_submit {
     
