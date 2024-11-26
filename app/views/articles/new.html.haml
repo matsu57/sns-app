@@ -1,0 +1,18 @@
+.container
+  .header
+    .header_left.color-accent
+      = link_to 'Canc', root_path
+    .header_userName
+      = current_user.username
+    .header_right
+      = button_tag("Post", type: "submit", form: "post_form", class: "form_submit color-gray")
+
+  %ul
+    - @article.errors.full_messages.each do |message|
+      %li= message
+  .form
+    = form_with(model: @article, id: "post_form", local: true) do |f|
+      %div
+        = f.text_area :content, class: "form_textarea", placeholder: "What's on your mind ?"
+      %div
+        = f.file_field :images, multiple: true, accept: 'image/*', id: 'imageUpload', class: 'form_album'

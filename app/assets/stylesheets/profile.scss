@@ -6,25 +6,7 @@ $image_size: 77px;
   margin-top: 24px;
 
   &_header {
-    display: flex;
-    justify-content: space-between;
-
-    &_back {
-
-    }
-
-    &_userName {
-      color: #333A42;
-      font-family: "Poppins Medium";
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-    }
-
-    &_actionButton {
-
-    }
+    
   }
 
   &_body {
