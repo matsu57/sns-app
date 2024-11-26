@@ -1,23 +1,23 @@
-.container.profilePage
-  .profilePage_header.header
+.container.profile
+  .profile_header.header
     .header_left
       = link_to 'back', root_path
     .header_userName
       = current_user.username
     .header_right
       = link_to 'log out', destroy_user_session_path, method: :delete
-  .profilePage_body
-    .profilePage_body_userImage
+  .profile_body
+    .profile_body_userImage
       = link_to edit_profile_path do
         = image_tag current_user.avatar_image
-    .profilePage_body_basicInfo
-      .profilePage_body_basicInfo_post
+    .profile_body_basicInfo
+      .profile_body_basicInfo_post
         %p 44
         %span Posts
-      .profilePage_body_basicInfo_followers
+      .profile_body_basicInfo_followers
         %p 44
         %span Followers
-      .profilePage_body_basicInfo_following
+      .profile_body_basicInfo_following
         %p 44
         %span Following
 
