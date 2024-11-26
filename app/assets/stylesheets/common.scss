@@ -14,13 +14,19 @@
 }
 
 .container {
-  padding: 16px 16px;
+  padding: 44px 16px;
   width: 100%;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
+
+  a {
+    img {
+      display: block;
+    }
+  }
 
   &_left {
 

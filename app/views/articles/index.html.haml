@@ -1,6 +1,7 @@
 .container
-  = link_to new_article_path do
-    = image_tag 'photo-camera.svg'
+  .header
+    = link_to new_article_path do
+      = image_tag 'photo-camera.svg'
   - @articles.each do |article|
     .article
       .article_header

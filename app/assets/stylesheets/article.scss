@@ -3,7 +3,13 @@
 $avatar_image_size: 30px;
 $image_height: 225px;
 
+article:first-child {
+  padding-top: 10px; /* 任意の値に置き換えてください */
+}
 .article {
+  padding-top: 18px;
+  padding-bottom: 18px;
+
   &_header {
     display: flex;
     gap: 8px;
@@ -30,7 +36,6 @@ $image_height: 225px;
 
   &_body {
     padding-top: 11px;
-    padding-bottom: 36px;
     font-size: 12px;
 
     &_image {
