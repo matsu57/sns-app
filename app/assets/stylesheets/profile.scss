@@ -48,9 +48,11 @@ $image_size: 77px;
 
     &_basicInfo {
       margin-top: 43px;
+      margin-bottom: 42px;
       display: flex;
       justify-content: center;
       text-align: center;
+
       &_post, &_followers, &_following{
         span {
           margin-top: -3px;
@@ -66,5 +68,11 @@ $image_size: 77px;
         margin-right: 31px;
       }
     }
+  }
+}
+
+.profileArticle {
+  & + & {
+    padding-top: 8px;
   }
 }
