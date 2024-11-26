@@ -1,48 +1,34 @@
-.container.profilePage
-  .profilePage_header.header
+.container.profile
+  .profile_header.header
     .header_left
-      = link_to 'back', root_path
+      = link_to '←', root_path
     .header_userName
       = current_user.username
     .header_right
+      -# - if user == current_user
       = link_to 'log out', destroy_user_session_path, method: :delete
-  .profilePage_body
-    .profilePage_body_userImage
+      -# - else
+      -#   - if current_user&.has_followed?(user)
+      -#     = link_to 'Unfollow', account_unfollows_path(user), data: {method: 'post'}
+      -#   - else
+      -#     = link_to 'Follow', account_follows_path(user), data: {method: 'post'}
+  .profile_body
+    .profile_body_userImage
       = link_to edit_profile_path do
         = image_tag current_user.avatar_image
-    .profilePage_body_basicInfo
-      .profilePage_body_basicInfo_post
+    .profile_body_basicInfo
+      .profile_body_basicInfo_post
         %p 44
         %span Posts
-      .profilePage_body_basicInfo_followers
+      .profile_body_basicInfo_followers
         %p 44
         %span Followers
-      .profilePage_body_basicInfo_following
+      .profile_body_basicInfo_following
         %p 44
         %span Following
 
-
-      -# - user.articles.each do |article|
-      -#   = link_to article_path(article) do
-      -#     / id: article.id は articleに省略可
-      -#     .card
-      -#       - if article.eyecatch.attached?
-      -#         -# articleにeyecatchが保存されているとき
-      -#         .card_image
-      -#           = image_tag article.eyecatch
-      -#       .card_content
-      -#         .card_title
-      -#           = article.title
-      -#         / /.card_title
-      -#         .card_heart
-      -#           = image_tag 'heart.svg'
-      -#           %span= article.like_count
-      -#         .card_detail
-      -#           = image_tag article.user.avatar_image
-      -#           %div
-      -#             -# - if article.user.present?
-      -#               -# articleでuser情報があるとき=>完全に存在するように設定しなおしたので不要
-      -#             -# %p= article.user.display_name=>自作のarthor_nameに変更
-      -#             %p= article.author.user.display_name
-      -#             %p= article.I18n.l(self.created_at, format: :default)
-                  / I18nは国際化用のクラス
+  - @user.articles.each do |article|
+    .profileArticle
+      .article_body_image
+        - article.images.each do |image|
+          = image_tag(image)
