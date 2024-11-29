@@ -3,7 +3,7 @@
     = link_to new_article_path do
       = image_tag 'photo-camera.svg'
   - @articles.each do |article|
-    .article#article-show{data: {article_id: article.id}}
+    .article{data: {article_id: article.id}}
       = link_to article.user.profile, class: 'article_header' do
         .article_header_userImage
           = image_tag article.user.avatar_image
@@ -17,19 +17,18 @@
           - article.images.each do |image|
             = image_tag(image)
         .article_body_icon
-          - if current_user.has_liked?(article)
-            .article_body_icon_heart.active-heart
-              = link_to article_like_path(article_id: article.id), data: { method: 'delete' } do
-                = image_tag 'heart-active.svg'
           .article_body_icon_heart.inactive-heart
             = link_to article_like_path(article), data: { method: :post } do
               = image_tag 'heart.svg'
+          .article_body_icon_heart.active-heart.hidden
+            = link_to article_like_path(article_id: article.id), data: { method: 'delete' } do
+              = image_tag 'heart-active.svg'
           .article_body_icon_comment
             = image_tag 'comment.svg'
           .article_body_icon_share
             = image_tag 'share.svg'
         .article_body_likeCount
-          aaaaaaaaaaa
+          %p= article.likes.count
         .article_body_content
           %p= article.user.username
           %p= article.content
