@@ -41,4 +41,9 @@ class User < ApplicationRecord
       'default-avatar.png'
     end
   end
+
+  def has_liked?(article)
+    likes.exists?(article_id: article.id)
+    # current_user.likes.exists?でuserのlikesのなかに、このidの記事が存在するかチェック
+  end
 end
