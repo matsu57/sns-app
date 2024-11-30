@@ -1,10 +1,13 @@
 .container
   .header
-    = link_to new_article_path do
-      = image_tag 'photo-camera.svg'
+    .header_left
+      = link_to new_article_path do
+        = image_tag 'photo-camera.svg'
+    .header_right
+      = link_to 'Sign in', user_session_path
   - @articles.each do |article|
     .article{data: {article_id: article.id}}
-      = link_to article.user.profile, class: 'article_header' do
+      = link_to profile_path(article.user.profile), class: 'article_header' do
         .article_header_userImage
           = image_tag article.user.avatar_image
         .article_header_info
