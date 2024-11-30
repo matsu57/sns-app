@@ -35,13 +35,23 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   $(document).on("click", ".inactive-heart", function () {
-    const likeArticleId = $(this).closest(".article").attr("data-article-id");
+    const articleElement = $(this).closest(".article");
+    const likeArticleId = articleElement.attr("data-article-id");
+    const likesCountElement = articleElement.find(".article_body_likeCount p");
+
     axios
       .post(`/articles/${likeArticleId}/like`)
       .then((response) => {
+        console.log(response)
         if (response.data.status === "ok") {
           $(this).addClass("hidden");
           $(this).next().removeClass("hidden");
+          const likesCount = response.data.likes_count;
+          let displayText;
+
+          // いいね数を更新
+          displayText = `${likesCount} other${likesCount == 1 ? "" : "s"} liked your post`;
+          likesCountElement.text(displayText);
         }
       })
       .catch((e) => {
@@ -51,13 +61,23 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   $(document).on("click", ".active-heart", function () {
-    const likeArticleId = $(this).closest(".article").attr("data-article-id");
+    const articleElement = $(this).closest(".article");
+    const likeArticleId = articleElement.attr("data-article-id");
+    const likesCountElement = articleElement.find(".article_body_likeCount p");
+    
     axios
-      .delete(`/articles/${likeArticleId}/like`)
-      .then((response) => {
-        if (response.data.status === "ok") {
-          $(this).addClass("hidden");
-          $(this).prev().removeClass("hidden");
+    .delete(`/articles/${likeArticleId}/like`)
+    .then((response) => {
+      console.log(response);
+      if (response.data.status === "ok") {
+        $(this).addClass("hidden");
+        $(this).prev().removeClass("hidden");
+        const likesCount = response.data.likes_count;
+        let displayText;
+
+        // いいね数を更新
+        displayText = `${likesCount} other${likesCount == 1 ? "" : "s"} liked your post`;
+        likesCountElement.text(displayText);
         }
       })
       .catch((e) => {

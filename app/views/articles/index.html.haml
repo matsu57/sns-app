@@ -26,7 +26,8 @@
           .article_body_icon_share
             = image_tag 'share.svg'
         .article_body_likeCount
-          %p= article.likes.count
+          %p
+            #{article.likes.count} other#{article.likes.count == 1 ? '' : 's'} liked your post
         .article_body_content
           %p= article.user.username
           %p= article.content

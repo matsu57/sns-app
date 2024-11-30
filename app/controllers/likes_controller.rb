@@ -9,15 +9,13 @@ class LikesController < ApplicationController
 
   def create
     @article.likes.create!(user_id: current_user.id)
-    # redirect_to root_path
-    render json: { status: 'ok' }
+    render json: { status: 'ok', likes_count: @article.reload.likes.count }
   end
 
   def destroy
     like = @article.likes.find_by(user_id: current_user.id)
     like.destroy!
-    # redirect_to root_path
-    render json: { status: 'ok' }
+    render json: { status: 'ok', likes_count: @article.reload.likes.count }
   end
 
   private
