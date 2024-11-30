@@ -1,10 +1,13 @@
 .container
   .header
-    = link_to new_article_path do
-      = image_tag 'photo-camera.svg'
+    .header_left
+      = link_to new_article_path do
+        = image_tag 'photo-camera.svg'
+    .header_right
+      = link_to 'Sign in', user_session_path
   - @articles.each do |article|
-    .article
-      = link_to article.user.profile, class: 'article_header' do
+    .article{data: {article_id: article.id}}
+      = link_to profile_path(article.user.profile), class: 'article_header' do
         .article_header_userImage
           = image_tag article.user.avatar_image
         .article_header_info
@@ -17,15 +20,20 @@
           - article.images.each do |image|
             = image_tag(image)
         .article_body_icon
-          .article_body_icon_heart
+          .article_body_icon_heart.inactive-heart
             = image_tag 'heart.svg'
+          .article_body_icon_heart.active-heart.hidden
+            = image_tag 'heart-active.svg'
           .article_body_icon_comment
             = image_tag 'comment.svg'
           .article_body_icon_share
             = image_tag 'share.svg'
         .article_body_likeCount
-          aaaaaaaaaaa
+          %p
+            #{article.likes.count} other#{article.likes.count == 1 ? '' : 's'} liked your post
         .article_body_content
           %p= article.user.username
           %p= article.content
         = link_to '削除する', article_path(article), data: {method: 'delete', confirm: '本当に削除してもよろしいですか?'}
+
+= javascript_pack_tag 'article'
