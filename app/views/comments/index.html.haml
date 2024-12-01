@@ -13,11 +13,8 @@
         .comment_text
           .comment_userName
             = comment.user.username
-          %p= comment.content
+            %p= comment.content
 
     .comment_create
       = image_tag 'comment.svg'
-      .comment_textarea
-        = text_area_tag :comment_content, '', class: 'sm'
-      .comment_add
-        Send
+      = text_area_tag :comment_content, '', class: 'comment_textarea'
