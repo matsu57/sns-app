@@ -3,7 +3,8 @@ class CommentsController < ApplicationController
   before_action :set_article
 
   def index
-    comments = @article.comments.order(:id)
+    comments = @article.comments.order(created_at: :desc)
+    # render json: comments
   end
 
   def create
