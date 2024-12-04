@@ -16,5 +16,9 @@
             %p= comment.content
 
     .comment_create
-      = image_tag 'comment.svg'
+      .comment_btn
+        = link_to new_article_comment_path(@article) do
+          = image_tag 'comment.svg'
       = text_area_tag :comment_content, '', class: 'comment_textarea'
+
+-# = javascript_pack_tag 'comment'

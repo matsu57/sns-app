@@ -7,12 +7,18 @@ class CommentsController < ApplicationController
     # render json: comments
   end
 
+  def new
+    @comment = @article.comments.build
+  end
+
   def create
     @comment = @article.comments.build(comment_params)
+    @comment.user = current_user
     if @comment.save
-      redirect_to @article, notice: 'コメントが投稿されました'
+      redirect_to article_comments_path, notice: 'コメントを追加'
     else
-      render 'index'
+      flash.now[:error] = '更新できませんでした'
+      render :new
     end
   end
 
@@ -22,7 +28,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.permit(:comment_content)
+    params.require(:comment).permit(:content)
   end
 
 end
