@@ -14,12 +14,15 @@ class CommentsController < ApplicationController
   def create
     @comment = @article.comments.build(comment_params)
     @comment.user = current_user
-    if @comment.save
-      redirect_to article_comments_path, notice: 'コメントを追加'
-    else
-      flash.now[:error] = '更新できませんでした'
-      render :new
-    end
+    @comment.save!
+    render json: @comment.as_json(
+      include: {
+        user: {
+          only: :username,
+          methods: :avatar_url
+        }
+      }
+    )
   end
 
   private

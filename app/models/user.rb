@@ -43,6 +43,14 @@ class User < ApplicationRecord
     end
   end
 
+  def avatar_url
+    if profile&.avatar&.attached?
+      Rails.application.routes.url_helpers.rails_blob_path(profile.avatar, only_path: true)
+    else
+      ActionController::Base.helpers.asset_path('default-avatar.png')
+    end
+  end
+
   def has_liked?(article)
     likes.exists?(article_id: article.id)
     # current_user.likes.exists?でuserのlikesのなかに、このidの記事が存在するかチェック
