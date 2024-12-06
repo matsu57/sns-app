@@ -28,6 +28,7 @@ class User < ApplicationRecord
 
   has_many :articles, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   def prepare_profile
     profile || build_profile
@@ -39,6 +40,14 @@ class User < ApplicationRecord
       profile.avatar
     else
       'default-avatar.png'
+    end
+  end
+
+  def avatar_url
+    if profile&.avatar&.attached?
+      Rails.application.routes.url_helpers.rails_blob_path(profile.avatar, only_path: true)
+    else
+      ActionController::Base.helpers.asset_path('default-avatar.png')
     end
   end
 

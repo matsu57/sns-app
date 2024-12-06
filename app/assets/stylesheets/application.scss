@@ -4,6 +4,7 @@
 @import 'profile';
 @import 'common';
 @import 'article';
+@import 'comment';
 
 html {
   font-family: $font-family;
@@ -36,8 +37,13 @@ a{
 }
 
 input, textarea, select {
+  width: 100%;
   font-family: inherit;
   border: none;
+}
+
+textarea {
+  resize: vertical;
 }
 
 input[type="file"] {

@@ -1,0 +1,23 @@
+.container.comment
+  .comment_header.header
+    .header_left
+      = link_to '←', root_path
+    .header_center
+      %p Comment
+    .header_right
+  .comment_body#article-id{data: {article_id: @article.id}}
+    - @article.comments.order(created_at: :desc).each do |comment|
+      .comment_content
+        .comment_avatar
+          = image_tag comment.user.avatar_image
+        .comment_text
+          .comment_userName
+            = comment.user.username
+          %p= comment.content
+
+    .comment_create
+      .comment_btn
+        = image_tag 'comment.svg'
+      = text_area_tag :comment_content, '', class: 'comment_textarea'
+
+= javascript_pack_tag 'comment'

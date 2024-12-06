@@ -1,0 +1,58 @@
+@import './variables';
+
+$avatar_image_size: 32px;
+
+.comment {
+  &_header{
+
+  }
+  &_body {
+    margin-top: 52px;
+
+  }
+  &_content {
+    display: flex;
+    gap: 14px;
+
+    & + & {
+      margin-top: 32px;
+    }
+  }
+  &_avatar {
+    margin-top: 7px;
+    width: $avatar_image_size;
+
+    img {
+      border-radius: 100%;
+      width: $avatar_image_size;
+      height: $avatar_image_size;
+      object-fit: cover;
+    }
+
+  }
+  &_text {
+
+    p {
+      color: #9B9B9B;
+      font-size: 14px;
+    }
+  }
+  &_userName {
+    color: #414040;
+  }
+  &_create {
+    position: fixed;
+    width: calc(100% - 16px * 2);
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 21px;
+    background: #fff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    gap: 7px;
+  }
+  &_textarea {
+    height: 22px;
+  }
+}
