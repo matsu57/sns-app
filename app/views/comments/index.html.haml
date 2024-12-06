@@ -5,7 +5,7 @@
     .header_center
       %p Comment
     .header_right
-  .comment_body{data: {user_id: current_user.id}}
+  .comment_body#article-id{data: {article_id: @article.id}}
     - @article.comments.order(created_at: :desc).each do |comment|
       .comment_content
         .comment_avatar
