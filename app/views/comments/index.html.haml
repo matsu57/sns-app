@@ -5,20 +5,19 @@
     .header_center
       %p Comment
     .header_right
-  .comment_body
-    - @article.comments.each do |comment|
+  .comment_body{data: {user_id: current_user.id}}
+    - @article.comments.order(created_at: :desc).each do |comment|
       .comment_content
         .comment_avatar
           = image_tag comment.user.avatar_image
         .comment_text
           .comment_userName
             = comment.user.username
-            %p= comment.content
+          %p= comment.content
 
     .comment_create
       .comment_btn
-        = link_to new_article_comment_path(@article) do
-          = image_tag 'comment.svg'
+        = image_tag 'comment.svg'
       = text_area_tag :comment_content, '', class: 'comment_textarea'
 
--# = javascript_pack_tag 'comment'
+= javascript_pack_tag 'comment'
