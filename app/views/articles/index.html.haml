@@ -3,6 +3,8 @@
     .header_left
       = link_to new_article_path do
         = image_tag 'photo-camera.svg'
+    .header_center
+      = link_to "ログアウト", destroy_user_session_path, method: :delete
     .header_right
       = link_to 'Sign in', user_session_path
   - @articles.each do |article|
