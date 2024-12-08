@@ -22,7 +22,8 @@ class CommentsController < ApplicationController
           methods: :avatar_url
         }
       }
-    )
+      )
+    send_email(@article.user, @comment.user)
   end
 
   private
@@ -32,6 +33,10 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:content)
+  end
+
+  def send_email(recipient, sender)
+    CommentsMailer.mention_notification(recipient, sender).deliver_later
   end
 
 end
