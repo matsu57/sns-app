@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
         }
       }
       )
-    send_email(@article.user, @comment.user)
+    send_email(@article.user, @comment.user, @article.id)
   end
 
   private
@@ -35,8 +35,8 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:content)
   end
 
-  def send_email(recipient, sender)
-    CommentsMailer.mention_notification(recipient, sender).deliver_later
+  def send_email(recipient, sender, articleId)
+    CommentsMailer.mention_notification(recipient, sender, articleId).deliver_now
   end
 
 end

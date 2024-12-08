@@ -1,4 +1,5 @@
 %p #{@recipient.username} さん
 %p #{@sender.username} さんからコメントが届きました。
 
--# = link_to 'プロフィールを確認する', account_url(@sender)
+%p コメントを確認するには以下のリンクをクリックしてください：
+= link_to 'コメントを確認する', article_comments_url(@articleId)
