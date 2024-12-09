@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
           methods: :avatar_url
         }
       }
-    )
+      )
   end
 
   private
