@@ -1,6 +1,6 @@
 %p #{@recipient.username} さん
 %p #{@sender.username} さんからコメントが届きました。
-%p 内容：#{@comment_content}
+%p 内容：#{@comment}
 
 %p コメントを確認するには以下のリンクをクリックしてください：
-= link_to 'コメントを確認する', article_comments_url(@article_id)
+= link_to 'コメントを確認する', article_comments_url(@article_id), target: '_blank'

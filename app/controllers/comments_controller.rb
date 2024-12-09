@@ -40,13 +40,13 @@ class CommentsController < ApplicationController
     mentioned_users.each do |username|
       user = User.find_by(username: username)
       if user
-        send_email(user, comment.user, comment.article.id, comment.content)
+        send_email(user, comment.user, comment)
       end
     end
   end
 
-  def send_email(recipient, sender, article_id, comment)
-    CommentsMailer.mention_notification(recipient, sender, article_id, comment).deliver_now
+  def send_email(recipient, sender, comment)
+    CommentsMailer.mention_notification(recipient, sender, comment).deliver_now
   end
 
 end

@@ -1,9 +1,9 @@
 class CommentsMailer < ApplicationMailer
-  def mention_notification(recipient, sender, article_id, comment_content)
+  def mention_notification(recipient, sender, comment)
     @recipient = recipient
     @sender = sender
-    @article_id = article_id
-    @comment_content = comment_content
-    mail to: recipient.email, subject: '【お知らせ】コメントがありました'
+    @comment = comment.content
+    @article_id = comment.article_id
+    mail to: recipient.email, subject: '【お知らせ】メンション付きコメントがありました'
   end
 end
