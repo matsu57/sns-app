@@ -17,4 +17,22 @@
 class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :article
+
+  after_create :check_mentions
+
+  private
+
+  def check_mentions
+    mentioned_users = self.content.scan(/@(\w+)/).flatten.uniq
+    mentioned_users.each do |username|
+      user = User.find_by(username: username)
+      if user
+        send_email(user, self.user, self)
+      end
+    end
+  end
+
+  def send_email(recipient, sender, comment)
+    CommentsMailer.mention_notification(recipient, sender, comment).deliver_later
+  end
 end

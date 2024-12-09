@@ -23,7 +23,6 @@ class CommentsController < ApplicationController
         }
       }
       )
-    check_mentions(@comment)
   end
 
   private
@@ -33,20 +32,6 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:content)
-  end
-
-  def check_mentions(comment)
-    mentioned_users = comment.content.scan(/@(\w+)/).flatten.uniq
-    mentioned_users.each do |username|
-      user = User.find_by(username: username)
-      if user
-        send_email(user, comment.user, comment)
-      end
-    end
-  end
-
-  def send_email(recipient, sender, comment)
-    CommentsMailer.mention_notification(recipient, sender, comment).deliver_now
   end
 
 end
