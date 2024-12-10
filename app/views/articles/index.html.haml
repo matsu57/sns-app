@@ -9,7 +9,7 @@
       = link_to 'Sign in', user_session_path
   - @articles.each do |article|
     .article{data: {article_id: article.id}}
-      = link_to profile_path(article.user.profile), class: 'article_header' do
+      = link_to account_path(article.user), class: 'article_header' do
         .article_header_userImage
           = image_tag article.user.avatar_image
         .article_header_info
