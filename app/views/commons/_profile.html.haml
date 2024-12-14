@@ -21,13 +21,13 @@
         = image_tag user.avatar_image
     .profile_body_basicInfo
       .profile_body_basicInfo_post
-        %p 44
+        %p= user.articles.count
         %span Posts
       .profile_body_basicInfo_followers
-        %p 44
+        %p= user.followers.count
         %span Followers
       .profile_body_basicInfo_following
-        %p 44
+        %p= user.followings.count
         %span Following
 
   - user.articles.each do |article|
