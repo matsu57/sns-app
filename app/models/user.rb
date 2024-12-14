@@ -63,22 +63,12 @@ class User < ApplicationRecord
   end
 
   def follow!(user)
-    if user.is_a?(User)
-      # is_a?(User)によりuserがUserクラスのインスタンスかどうかわかる
-      user_id = user.id
-    else
-      user_id = user
-    end
+    user_id = get_user_id(user)
     following_relationships.create!(following_id: user_id)
   end
 
   def unfollow!(user)
-    if user.is_a?(User)
-      # is_a?(User)によりuserがUserクラスのインスタンスかどうかわかる
-      user_id = user.id
-    else
-      user_id = user
-    end
+    user_id = get_user_id(user)
     relation = following_relationships.find_by!(following_id: user_id)
     relation.destroy!
   end
@@ -87,5 +77,14 @@ class User < ApplicationRecord
     following_relationships.exists?(following_id: user.id)
   end
 
+  private
+  def get_user_id(user)
+    if user.is_a?(User)
+      # is_a?(User)によりuserがUserクラスのインスタンスかどうかわかる
+      user.id
+    else
+      user
+    end
+  end
 
 end
