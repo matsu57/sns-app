@@ -27,8 +27,48 @@ document.addEventListener("DOMContentLoaded", () => {
       const hasFollowed = response.data.hasFollowed;
       console.log(hasFollowed);
       handleFollowDisplay(hasFollowed);
+      console.log(response.data.followersCount);
     })
     .catch((error) => {
       console.error("Error fetching follow status:", error);
     });
+
+  $(document).on("click", ".follow", function () {
+    const followersCountElement = $(".profile_body_basicInfo_followers p");
+    axios
+      .post(`/accounts/${accountId}/follows`)
+      .then((response) => {
+        if (response.data.status === "ok") {
+          handleFollowDisplay(true)
+          const followersCount = response.data.followersCount;
+
+          let displayText;
+          displayText = `${followersCount}`;
+          followersCountElement.text(displayText);
+        }
+      })
+      .catch((e) => {
+        window.alert("follow Error");
+        console.log(e);
+      });
+  });
+  $(document).on("click", ".unfollow", function () {
+    const followersCountElement = $(".profile_body_basicInfo_followers p");
+    axios
+      .post(`/accounts/${accountId}/unfollows`)
+      .then((response) => {
+        if (response.data.status === "ok") {
+          handleFollowDisplay(false);
+          const followersCount = response.data.followersCount;
+
+          let displayText;
+          displayText = `${followersCount}`;
+          followersCountElement.text(displayText);
+        }
+      })
+      .catch((e) => {
+        window.alert("unfollow Error");
+        console.log(e);
+      });
+  });
 })
