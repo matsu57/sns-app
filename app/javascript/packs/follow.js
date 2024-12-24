@@ -4,6 +4,15 @@ import { csrfToken } from "rails-ujs";
 
 axios.defaults.headers.common["X-CSRF-Token"] = csrfToken();
 
+const handleFollowDisplay = (hasFollowed) => {
+  if (hasFollowed) {
+    $(".unfollow").removeClass("hidden");
+    $(".follow").addClass("hidden");
+  } else {
+    $(".unfollow").addClass("hidden");
+    $(".follow").removeClass("hidden");
+  }
+};
 
 // DOMが読み込まれた後の処理
 document.addEventListener("DOMContentLoaded", () => {
@@ -16,7 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .get(`/accounts/${accountId}/follows/${followingId}`)
     .then((response) => {
       const hasFollowed = response.data.hasFollowed;
-      console.log(hasFollowed)
+      console.log(hasFollowed);
+      handleFollowDisplay(hasFollowed);
     })
     .catch((error) => {
       console.error("Error fetching follow status:", error);
