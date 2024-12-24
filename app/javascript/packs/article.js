@@ -42,11 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
     axios
       .post(`/articles/${likeArticleId}/like`)
       .then((response) => {
-        console.log(response)
         if (response.data.status === "ok") {
           $(this).addClass("hidden");
           $(this).next().removeClass("hidden");
-          const likesCount = response.data.likes_count;
+          const likesCount = response.data.likesCount;
           let displayText;
 
           // いいね数を更新
@@ -68,7 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
     axios
     .delete(`/articles/${likeArticleId}/like`)
     .then((response) => {
-      console.log(response);
       if (response.data.status === "ok") {
         $(this).addClass("hidden");
         $(this).prev().removeClass("hidden");
