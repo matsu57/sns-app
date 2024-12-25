@@ -6,11 +6,11 @@ axios.defaults.headers.common["X-CSRF-Token"] = csrfToken();
 
 const handleFollowDisplay = (hasFollowed) => {
   if (hasFollowed) {
-    $(".unfollow").removeClass("hidden");
-    $(".follow").addClass("hidden");
+    $(".unfollow-button").removeClass("hidden");
+    $(".follow-button").addClass("hidden");
   } else {
-    $(".unfollow").addClass("hidden");
-    $(".follow").removeClass("hidden");
+    $(".unfollow-button").addClass("hidden");
+    $(".follow-button").removeClass("hidden");
   }
 };
 
