@@ -1,6 +1,12 @@
 class FollowsController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @user= User.find(params[:account_id])
+    @followers = @user.followers.all
+    @followings = @user.followings.all
+  end
+
   def show
     @user= User.find(params[:account_id])
     follow_status = current_user.has_followed?(@user)
