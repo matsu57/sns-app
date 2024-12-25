@@ -3,8 +3,13 @@ class FollowsController < ApplicationController
 
   def index
     @user= User.find(params[:account_id])
-    @followers = @user.followers.all
-    @followings = @user.followings.all
+    @tab = params[:tab] || 'Followers'
+
+    if @tab == 'Following'
+      @users = @user.followings.all
+    else
+      @users = @user.followers.all
+    end
   end
 
   def show

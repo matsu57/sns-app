@@ -24,7 +24,7 @@
         %span Posts
       .profile_body_basicInfo_followers
         - if @user.followers.count > 0
-          = link_to account_follows_path(@user) do
+          = link_to account_follows_path(@user, tab: 'Followers')  do
             %p= @user.followers.count
             %span Followers
         - else
@@ -32,7 +32,7 @@
           %span Followers
       .profile_body_basicInfo_following
         - if @user.followings.count > 0
-          = link_to account_follows_path(@user) do
+          = link_to account_follows_path(@user, tab: 'Following') do
             %p= @user.followings.count
             %span Following
         - else
