@@ -1,0 +1,46 @@
+@import './variables';
+
+$avatar_image_size: 40px;
+
+.follow {
+  margin-top: 50px;
+  margin-left: -16px;
+  margin-right: -16px;
+
+  &_content {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 30px;
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #EEE;
+
+    & + & {
+      margin-top: 30px;
+    }
+  }
+  &_avatar {
+    margin-top: 7px;
+    width: $avatar_image_size;
+
+    img {
+      border-radius: 100%;
+      width: $avatar_image_size;
+      height: $avatar_image_size;
+      object-fit: cover;
+    }
+
+  }
+  &_text {
+
+    p {
+      color: #9B9B9B;
+      font-size: 12px;
+    }
+  }
+  &_userName {
+    color: #333;
+    font-size: 14px;
+    padding-bottom: 4px;
+  }
+}

@@ -1,0 +1,16 @@
+.container
+  .header
+    .header_left
+      = link_to '←', :back
+    .header_center
+      %p= @tab
+    .header_right
+  .follow
+    - @users.each do |user|
+      = link_to account_path(user), class: 'follow_content' do
+        .follow_avatar
+          = image_tag user.avatar_image
+        .follow_text
+          .follow_userName
+            = user.username
+          %p aaaaaaaa

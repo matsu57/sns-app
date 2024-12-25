@@ -1,0 +1,48 @@
+.container.profile#account-id{data: {account_id: @user.id, current_id: current_user.id}}
+  .profile_header.header
+    .header_left
+      = link_to '←', root_path
+    .header_center
+      = @user.username
+    .header_right
+      - if @user == current_user
+        = link_to 'Log out', destroy_user_session_path, method: :delete
+      - else
+        %button.unfollow-button.hidden Unfollow
+        %button.follow-button.hidden Follow
+
+  .profile_body
+    .profile_body_userImage
+      - if @user == current_user
+        = link_to edit_profile_path do
+          = image_tag @user.avatar_image
+      - else
+        = image_tag @user.avatar_image
+    .profile_body_basicInfo
+      .profile_body_basicInfo_post
+        %p= @user.articles.count
+        %span Posts
+      .profile_body_basicInfo_followers
+        - if @user.followers.count > 0
+          = link_to account_follows_path(@user, tab: 'Followers')  do
+            %p= @user.followers.count
+            %span Followers
+        - else
+          %p= 0
+          %span Followers
+      .profile_body_basicInfo_following
+        - if @user.followings.count > 0
+          = link_to account_follows_path(@user, tab: 'Following') do
+            %p= @user.followings.count
+            %span Following
+        - else
+          %p= 0
+          %span Following
+
+  - @user.articles.each do |article|
+    .profileArticle
+      .article_body_image
+        - article.images.each do |image|
+          = image_tag(image)
+
+= javascript_pack_tag 'follow'

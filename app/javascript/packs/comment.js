@@ -21,7 +21,6 @@ const appendNewComment = (comment) => {
   $(".comment_body").prepend(commentHtml);
 };
 
-// DOMが読み込まれた後の処理
 document.addEventListener("DOMContentLoaded", () => {
   const articleShow = $("#article-id");
   const dataset = articleShow.data();
