@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error fetching follow status:", error);
     });
 
-  $(document).on("click", ".follow", function () {
+  $(document).on("click", ".follow-button", function () {
     axios
       .post(`/accounts/${accountId}/follows`)
       .then((response) => {
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(e);
       });
   });
-  $(document).on("click", ".unfollow", function () {
+  $(document).on("click", ".unfollow-button", function () {
     axios
       .post(`/accounts/${accountId}/unfollows`)
       .then((response) => {
