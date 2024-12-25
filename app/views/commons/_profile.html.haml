@@ -10,10 +10,7 @@
       - else
         %button.unfollow.hidden Unfollow
         %button.follow.hidden Follow
-        -# - if current_user&.has_followed?(@user)
-        -#   = link_to 'Unfollow', account_unfollows_path(@user), data: {method: 'post'}
-        -# - else
-        -#   = link_to 'Follow', account_follows_path(@user), data: {method: 'post'}
+
   .profile_body
     .profile_body_userImage
       - if @user == current_user
@@ -26,11 +23,21 @@
         %p= @user.articles.count
         %span Posts
       .profile_body_basicInfo_followers
-        %p= @user.followers.count
-        %span Followers
+        - if @user.followers.count > 0
+          = link_to account_follows_path(@user) do
+            %p= @user.followers.count
+            %span Followers
+        - else
+          %p= 0
+          %span Followers
       .profile_body_basicInfo_following
-        %p= @user.followings.count
-        %span Following
+        - if @user.followings.count > 0
+          = link_to account_follows_path(@user) do
+            %p= @user.followings.count
+            %span Following
+        - else
+          %p= 0
+          %span Following
 
   - @user.articles.each do |article|
     .profileArticle
