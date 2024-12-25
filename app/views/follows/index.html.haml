@@ -7,7 +7,7 @@
     .header_right
   .follow
     - @users.each do |user|
-      .follow_content
+      = link_to account_path(user), class: 'follow_content' do
         .follow_avatar
           = image_tag user.avatar_image
         .follow_text
