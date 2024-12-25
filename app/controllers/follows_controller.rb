@@ -1,5 +1,6 @@
 class FollowsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_user
 
   def index
     @user= User.find(params[:account_id])
@@ -13,7 +14,6 @@ class FollowsController < ApplicationController
   end
 
   def show
-    @user= User.find(params[:account_id])
     follow_status = current_user.has_followed?(@user)
     render json: { hasFollowed: follow_status, followersCount: @user.reload.followers.count }
   end
@@ -23,5 +23,10 @@ class FollowsController < ApplicationController
     @user= User.find(params[:account_id])
     # redirect_to account_path(params[:account_id])
     render json: { status: 'ok', followersCount: @user.reload.followers.count }
+  end
+
+  private
+  def set_user
+    @user= User.find(params[:account_id])
   end
 end
