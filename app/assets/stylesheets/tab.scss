@@ -5,12 +5,16 @@
   display: flex;
   gap: 5px;
   justify-content: space-between;
+
   &_item {
     padding: 5px 10px;
     width: 50%;
     text-align: center;
+    a {
+      display: block;
+    }
+    &.active {
+      background: $primary-color;
+    }
   }
-}
-.active {
-  background: $primary-color;
 }
