@@ -1,16 +1,16 @@
 @import './variables';
 
-.tab {
+.tabs {
   margin-top: 20px;
   display: flex;
   gap: 5px;
   justify-content: space-between;
 
   &_item {
-    padding: 5px 10px;
     width: 50%;
     text-align: center;
     a {
+      padding: 5px 10px;
       display: block;
     }
     &.active {
