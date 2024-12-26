@@ -1,5 +1,5 @@
 .mv
-.form
+.form.form_login
   = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
     .field
       = f.label :email, class: "form_label"

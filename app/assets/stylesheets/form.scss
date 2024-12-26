@@ -3,6 +3,11 @@
 .form {
   position: relative;
 
+  &_login {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
   &_label {
     font-size: 11px;
     color: #979797;
