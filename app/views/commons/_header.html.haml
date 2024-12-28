@@ -1,0 +1,10 @@
+.header
+  .header_left
+    = link_to new_article_path do
+      = image_tag 'photo-camera.svg'
+  .header_center
+  .header_right
+    - if user_signed_in?
+      = link_to "Sign out", destroy_user_session_path, method: :delete
+    - else
+      = link_to 'Sign in', user_session_path

@@ -1,0 +1,20 @@
+@import './variables';
+
+.tabs {
+  margin-top: 20px;
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+
+  &_item {
+    width: 50%;
+    text-align: center;
+    a {
+      padding: 5px 10px;
+      display: block;
+    }
+    &.active {
+      background: $primary-color;
+    }
+  }
+}
