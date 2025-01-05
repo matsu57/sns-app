@@ -28,7 +28,11 @@
             = image_tag 'share.svg'
         .article_body_likeCount
           %p
-            #{article.likes.count} other#{article.likes.count == 1 ? '' : 's'} liked your post
+            - if article.likes.count > 0
+              - if article.likes.count > 1
+                #{article.likes.last&.user&.username} and #{article.likes.count - 1} other#{article.likes.count > 2 ? 's' : ''} liked your post
+              - else
+                #{article.likes.last&.user&.username} liked your post
         .article_body_content
           %p= article.user.username
           %p= article.content

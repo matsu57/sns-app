@@ -14,6 +14,23 @@ const handleHeartDisplay = (hasLiked, activeHeart, inactiveHeart) => {
   }
 };
 
+const likesCountDisplay = (likesCount, lastLikeUsername, likesCountElement) => {
+  if (likesCount > 0) {
+    let displayText = `${lastLikeUsername}`;
+
+    if (likesCount > 1) {
+      displayText += ` and ${likesCount - 1} other${likesCount > 2 ? "s" : ""} liked your post`;
+    } else {
+      displayText += " liked your post";
+    }
+
+    likesCountElement.text(displayText).show();
+  }
+  else {
+    likesCountElement.hide();
+  }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   const articles = document.querySelectorAll(".article");
 
@@ -27,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .get(`/articles/${articleId}/like`)
       .then((response) => {
         const hasLiked = response.data.hasLiked;
+        const lastLikeUsername = response.data.lastLikeUsername;
         handleHeartDisplay(hasLiked, activeHeart, inactiveHeart);
       })
       .catch((error) => {
@@ -46,15 +64,12 @@ document.addEventListener("DOMContentLoaded", () => {
           $(this).addClass("hidden");
           $(this).next().removeClass("hidden");
           const likesCount = response.data.likesCount;
-          let displayText;
-
-          // いいね数を更新
-          displayText = `${likesCount} other${likesCount == 1 ? "" : "s"} liked your post`;
-          likesCountElement.text(displayText);
+          const lastLikeUsername = response.data.lastLikeUsername;
+          likesCountDisplay(likesCount, lastLikeUsername, likesCountElement);
         }
       })
       .catch((e) => {
-        window.alert("Error");
+        window.alert("inactive-heart Error");
         console.log(e);
       });
   });
@@ -63,23 +78,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const articleElement = $(this).closest(".article");
     const likeArticleId = articleElement.attr("data-article-id");
     const likesCountElement = articleElement.find(".article_body_likeCount p");
-    
-    axios
-    .delete(`/articles/${likeArticleId}/like`)
-    .then((response) => {
-      if (response.data.status === "ok") {
-        $(this).addClass("hidden");
-        $(this).prev().removeClass("hidden");
-        const likesCount = response.data.likes_count;
-        let displayText;
 
-        // いいね数を更新
-        displayText = `${likesCount} other${likesCount == 1 ? "" : "s"} liked your post`;
-        likesCountElement.text(displayText);
+    axios
+      .delete(`/articles/${likeArticleId}/like`)
+      .then((response) => {
+        if (response.data.status === "ok") {
+          $(this).addClass("hidden");
+          $(this).prev().removeClass("hidden");
+          const likesCount = response.data.likesCount;
+          const lastLikeUsername = response.data.lastLikeUsername;
+          likesCountDisplay(likesCount, lastLikeUsername, likesCountElement);
         }
       })
       .catch((e) => {
-        window.alert("Error");
+        window.alert("active-heart Error");
         console.log(e);
       });
   });
