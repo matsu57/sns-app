@@ -3,6 +3,7 @@ import axios from "axios";
 import { csrfToken } from "rails-ujs";
 
 axios.defaults.headers.common["X-CSRF-Token"] = csrfToken();
+import { imageDisplay } from "modules/image_display";
 
 const handleHeartDisplay = (hasLiked, activeHeart, inactiveHeart) => {
   if (hasLiked) {
@@ -32,28 +33,6 @@ const likesCountDisplay = (likesCount, lastLikeUsername, likesCountElement) => {
 };
 
 
-function adjustImageLayout(imageContainer) {
-  const images = imageContainer.querySelectorAll("img");
-  const count = images.length;
-  imageContainer.style.height = "225px";
-  imageContainer.style.overflow = "hidden";
-
-  if (count === 1) {
-    imageContainer.style.gridTemplateColumns = "1fr";
-  } else if (count === 2) {
-    imageContainer.style.gridTemplateColumns = "1fr 1fr";
-  } else if (count === 3) {
-    imageContainer.style.gridTemplateColumns = "calc(50% - 3.5px) calc(50% - 3.5px)";
-    imageContainer.style.gridTemplateRows = "calc(50% - 3.5px) calc(50% - 3.5px)";
-    images[0].style.gridRow = "1 / span 2";
-    images[1].style.gridRow = "1 / span 1";
-    images[2].style.gridRow = "2 / span 1";
-  } else if (count === 4) {
-    imageContainer.style.gridTemplateColumns = "calc(50% - 3.5px) calc(50% - 3.5px)";
-    imageContainer.style.gridTemplateRows = "calc(50% - 3.5px) calc(50% - 3.5px)";
-  }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   const articles = document.querySelectorAll(".article");
 
@@ -64,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 画像の表示サイズの調整
     const imageContainer = article.querySelector(".article_body_image");
-    adjustImageLayout(imageContainer);
+    imageDisplay(imageContainer);
 
     // サーバーからいいね状態を取得
     axios
