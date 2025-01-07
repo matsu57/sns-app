@@ -36,6 +36,9 @@
         .article_body_content
           %p= article.user.username
           %p= article.content
-        = link_to '削除する', article_path(article), data: {method: 'delete', confirm: '本当に削除してもよろしいですか?'}
+        - if article.user == current_user
+          .article_body_delete
+            = link_to article_path(article), data: {method: 'delete', confirm: '本当に削除してもよろしいですか?'} do
+              =image_tag 'delete.svg'
 
 = javascript_pack_tag 'article'
