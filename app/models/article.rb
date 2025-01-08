@@ -18,4 +18,8 @@ class Article < ApplicationRecord
 
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
+
+  validates :images,
+    attached_file_presence: true,
+
 end

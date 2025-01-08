@@ -16,5 +16,8 @@ module SnsApp
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.active_job.queue_adapter = :sidekiq
+
+    # 自作のvalidationを使う
+    config.autoload_paths += %W(#{config.root}/app/validators)
   end
 end
