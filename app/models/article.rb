@@ -21,5 +21,5 @@ class Article < ApplicationRecord
 
   validates :images,
     attached_file_presence: true,
-
+    attached_file_number: { maximum: 4 }
 end
