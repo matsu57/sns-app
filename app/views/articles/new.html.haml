@@ -5,7 +5,7 @@
     .header_center
       Status
     .header_right
-      = button_tag("Post", type: "submit", form: "post_form", class: "form_submit color-gray")
+      = button_tag("Post", type: "submit", form: "post_form", class: "form_submit color-gray", id: "submit_button", disabled: true)
 
   .user
     .user_avatar
@@ -21,3 +21,5 @@
         = f.text_area :content, class: "form_textarea", placeholder: "What's on your mind ?"
       %div
         = f.file_field :images, multiple: true, accept: 'image/*', id: 'imageUpload', class: 'form_album'
+
+= javascript_pack_tag 'form'
