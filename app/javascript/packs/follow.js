@@ -14,14 +14,24 @@ const handleFollowDisplay = (hasFollowed) => {
   }
 };
 
-const followersCountDisplay = (followersCount) => {
-  const followersCountElement = $(".profile_body_basicInfo_followers p");
-  let displayText;
-  displayText = `${followersCount}`;
-  followersCountElement.text(displayText);
+const handleFollowAction = (accountId, action) => {
+  const url = `/accounts/${accountId}/${action === "follow" ? "follows" : "unfollows"}`;
+
+  axios
+    .post(url)
+    .then((response) => {
+      if (response.data.status === "ok") {
+        handleFollowDisplay(action === "follow");
+        $(".profile_body_basicInfo_followers p").text(response.data.followersCount);
+      }
+    })
+    .catch((e) => {
+      window.alert(`${action} Error`);
+      console.log(e);
+    });
 };
 
-// DOMが読み込まれた後の処理
+
 document.addEventListener("DOMContentLoaded", () => {
   const account = $("#account-id");
   const dataset = account.data();
@@ -38,34 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error fetching follow status:", error);
     });
 
-  $(document).on("click", ".follow-button", function () {
-    axios
-      .post(`/accounts/${accountId}/follows`)
-      .then((response) => {
-        if (response.data.status === "ok") {
-          handleFollowDisplay(true)
-          const followersCount = response.data.followersCount;
-          followersCountDisplay(followersCount);
-        }
-      })
-      .catch((e) => {
-        window.alert("follow Error");
-        console.log(e);
-      });
-  });
-  $(document).on("click", ".unfollow-button", function () {
-    axios
-      .post(`/accounts/${accountId}/unfollows`)
-      .then((response) => {
-        if (response.data.status === "ok") {
-          handleFollowDisplay(false);
-          const followersCount = response.data.followersCount;
-          followersCountDisplay(followersCount);
-        }
-      })
-      .catch((e) => {
-        window.alert("unfollow Error");
-        console.log(e);
-      });
-  });
+  $(document).on("click", ".follow-button", () => handleFollowAction(accountId, "follow"));
+  $(document).on("click", ".unfollow-button", () => handleFollowAction(accountId, "unfollow"));
 })
