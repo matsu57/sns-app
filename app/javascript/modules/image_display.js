@@ -1,9 +1,3 @@
-import $ from "jquery";
-import axios from "axios";
-import { csrfToken } from "rails-ujs";
-
-axios.defaults.headers.common["X-CSRF-Token"] = csrfToken();
-
 const imageDisplay = (imageContainer) =>  {
   const images = imageContainer.querySelectorAll("img");
   const count = images.length;
