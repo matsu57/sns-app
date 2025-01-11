@@ -1,9 +1,10 @@
-import $ from "jquery";
 import axios from "axios";
 import { csrfToken } from "rails-ujs";
 
 axios.defaults.headers.common["X-CSRF-Token"] = csrfToken();
+
 import { imageDisplay } from "modules/image_display";
+import { heartListener } from "modules/heart_listener";
 
 const handleHeartDisplay = (hasLiked, activeHeart, inactiveHeart) => {
   if (hasLiked) {
@@ -14,24 +15,6 @@ const handleHeartDisplay = (hasLiked, activeHeart, inactiveHeart) => {
     inactiveHeart.classList.remove("hidden");
   }
 };
-
-const likesCountDisplay = (likesCount, lastLikeUsername, likesCountElement) => {
-  if (likesCount > 0) {
-    let displayText = `${lastLikeUsername}`;
-
-    if (likesCount > 1) {
-      displayText += ` and ${likesCount - 1} other${likesCount > 2 ? "s" : ""} liked your post`;
-    } else {
-      displayText += " liked your post";
-    }
-
-    likesCountElement.text(displayText).show();
-  }
-  else {
-    likesCountElement.hide();
-  }
-};
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const articles = document.querySelectorAll(".article");
@@ -58,47 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 
-  $(document).on("click", ".inactive-heart", function () {
-    const articleElement = $(this).closest(".article");
-    const likeArticleId = articleElement.attr("data-article-id");
-    const likesCountElement = articleElement.find(".article_body_likeCount p");
-
-    axios
-      .post(`/articles/${likeArticleId}/like`)
-      .then((response) => {
-        if (response.data.status === "ok") {
-          $(this).addClass("hidden");
-          $(this).next().removeClass("hidden");
-          const likesCount = response.data.likesCount;
-          const lastLikeUsername = response.data.lastLikeUsername;
-          likesCountDisplay(likesCount, lastLikeUsername, likesCountElement);
-        }
-      })
-      .catch((e) => {
-        window.alert("inactive-heart Error");
-        console.log(e);
-      });
-  });
-
-  $(document).on("click", ".active-heart", function () {
-    const articleElement = $(this).closest(".article");
-    const likeArticleId = articleElement.attr("data-article-id");
-    const likesCountElement = articleElement.find(".article_body_likeCount p");
-
-    axios
-      .delete(`/articles/${likeArticleId}/like`)
-      .then((response) => {
-        if (response.data.status === "ok") {
-          $(this).addClass("hidden");
-          $(this).prev().removeClass("hidden");
-          const likesCount = response.data.likesCount;
-          const lastLikeUsername = response.data.lastLikeUsername;
-          likesCountDisplay(likesCount, lastLikeUsername, likesCountElement);
-        }
-      })
-      .catch((e) => {
-        window.alert("active-heart Error");
-        console.log(e);
-      });
-  });
+  // オンタイムでのハートのつけ外し
+  heartListener();
 });
