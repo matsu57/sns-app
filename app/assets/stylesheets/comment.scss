@@ -3,11 +3,13 @@
 $avatar_image_size: 32px;
 
 .comment {
+
   &_header{
 
   }
   &_body {
-    margin-top: 52px;
+    margin-top: 25px;
+    margin-bottom: 30px;
 
   }
   &_content {
@@ -42,6 +44,7 @@ $avatar_image_size: 32px;
   }
   &_create {
     position: fixed;
+    max-width: $max-with;
     width: calc(100% - 16px * 2);
     bottom: 20px;
     left: 50%;
