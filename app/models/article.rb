@@ -18,4 +18,10 @@ class Article < ApplicationRecord
 
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
+
+  validates :content, presence: true
+  validates :images,
+    attached_file_presence: true,
+    attached_file_number: { maximum: 4 },
+    attached_file_size: { maximum: 5.megabytes }
 end

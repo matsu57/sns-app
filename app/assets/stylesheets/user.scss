@@ -1,0 +1,21 @@
+@import './variables';
+.user {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  &_avatar {
+    margin-top: 3px;
+    width: $avatar_image_size;
+  
+    img {
+      border-radius: 100%;
+      width: $avatar_image_size;
+      height: $avatar_image_size;
+      object-fit: cover;
+    }
+  }
+  &_userName {
+    color: #333;
+  }
+}

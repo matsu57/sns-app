@@ -37,6 +37,8 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_decorator (1.4.1)
+      activesupport
     active_model_serializers (0.10.14)
       actionpack (>= 4.1)
       activemodel (>= 4.1)
@@ -328,6 +330,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_decorator
   active_model_serializers
   annotate
   better_errors

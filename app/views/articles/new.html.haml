@@ -2,11 +2,16 @@
   .header
     .header_left.color-accent
       = link_to 'Canc', root_path
-    .header_userName
-      = current_user.username
+    .header_center
+      Status
     .header_right
-      = button_tag("Post", type: "submit", form: "post_form", class: "form_submit color-gray")
+      = button_tag("Post", type: "submit", form: "post_form", class: "form_submit color-gray", id: "submit_button", disabled: true)
 
+  .user
+    .user_avatar
+      = image_tag current_user.avatar_image
+    .user_userName
+      = current_user.username
   %ul
     - @article.errors.full_messages.each do |message|
       %li= message
@@ -16,3 +21,5 @@
         = f.text_area :content, class: "form_textarea", placeholder: "What's on your mind ?"
       %div
         = f.file_field :images, multiple: true, accept: 'image/*', id: 'imageUpload', class: 'form_album'
+
+= javascript_pack_tag 'form'

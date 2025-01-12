@@ -14,4 +14,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
     devise_parameter_sanitizer.permit :sign_in, keys: added_attrs
   end
+
+  def current_user
+    ActiveDecorator::Decorator.instance.decorate(super) if super.present?
+    super
+  end
 end
