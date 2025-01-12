@@ -1,4 +1,4 @@
-module LikesHelper
+module ArticlesHelper
   def likes_count_display(article)
     count = article.likes.count
     return '' if count == 0
