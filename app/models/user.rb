@@ -40,23 +40,6 @@ class User < ApplicationRecord
     profile || build_profile
   end
 
-  def avatar_image
-    if profile&.avatar&.attached?
-      # &.attached?で画像がアップロードされているか調べる
-      profile.avatar
-    else
-      'default-avatar.png'
-    end
-  end
-
-  def avatar_url
-    if profile&.avatar&.attached?
-      Rails.application.routes.url_helpers.rails_blob_path(profile.avatar, only_path: true)
-    else
-      ActionController::Base.helpers.asset_path('default-avatar.png')
-    end
-  end
-
   def has_liked?(article)
     likes.exists?(article_id: article.id)
     # current_user.likes.exists?でuserのlikesのなかに、このidの記事が存在するかチェック
@@ -72,6 +55,7 @@ class User < ApplicationRecord
     relation = following_relationships.find_by!(following_id: user)
     relation.destroy!
   end
+
 
   def has_followed?(user)
     following_relationships.exists?(following_id: user.id)
