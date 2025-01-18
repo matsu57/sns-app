@@ -14,8 +14,9 @@
   .profile_body
     .profile_body_userImage
       - if @user == current_user
-        = link_to edit_profile_path do
-          = image_tag @user.avatar_image
+        = image_tag @user.avatar_image, class: 'current', id: 'avatar-preview'
+        = form_with(model: @profile, url: profile_path, method: 'put', local: true) do |f|
+          = f.file_field :avatar, style: 'display: none;', id: 'avatar-input', accept: 'image/*'
       - else
         = image_tag @user.avatar_image
     .profile_body_basicInfo
