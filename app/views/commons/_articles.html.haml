@@ -13,7 +13,7 @@
           .article_header_time
             = article.created_at
       .article_body
-        .article_body_image
+        .article_body_image{class: "image-count-#{article.images.length}"}
           - article.images.each do |image|
             = image_tag(image)
         .article_body_icon

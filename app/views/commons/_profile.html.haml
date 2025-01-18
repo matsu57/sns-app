@@ -42,7 +42,7 @@
 
   - @user.articles.each do |article|
     .profileArticle
-      .article_body_image
+      .article_body_image{class: "image-count-#{article.images.length}"}
         - article.images.each do |image|
           = image_tag(image)
 
