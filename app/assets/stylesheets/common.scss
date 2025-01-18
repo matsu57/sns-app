@@ -72,3 +72,34 @@
   }
 }
 
+// 1枚の場合
+.image-count-1 {
+  grid-template-columns: 1fr;
+}
+
+// 2枚の場合
+.image-count-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+// 3枚の場合
+.image-count-3 {
+  grid-template-columns: calc(50% - 3.5px) calc(50% - 3.5px);
+  grid-template-rows: calc(50% - 3.5px) calc(50% - 3.5px);
+
+  img:first-child {
+    grid-row: 1 / span 2;
+  }
+  img:nth-child(2) {
+    grid-row: 1 / span 1;
+  }
+  img:nth-child(3) {
+    grid-row: 2 / span 1;
+  }
+}
+
+// 4枚の場合
+.image-count-4 {
+  grid-template-columns: calc(50% - 3.5px) calc(50% - 3.5px);
+  grid-template-rows: calc(50% - 3.5px) calc(50% - 3.5px);
+}
