@@ -10,4 +10,13 @@ module ArticlesHelper
       "#{last_user} and #{count - 1} other#{count > 2 ? 's' : ''} liked your post"
     end
   end
+
+  def display_create_at(article)
+    hours_ago = ((Time.zone.now - article.created_at) / 1.hour).floor
+    if hours_ago > 24
+      I18n.l(article.created_at, format: :default)
+    else
+      "#{hours_ago} hours ago"
+    end
+  end
 end
