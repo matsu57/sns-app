@@ -14,7 +14,4 @@
 class Profile < ApplicationRecord
   belongs_to :user
   has_one_attached :avatar
-
-  validates :avatar,
-    attached_file_size: { maximum: 5.megabytes }
 end

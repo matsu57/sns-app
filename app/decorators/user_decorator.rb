@@ -4,7 +4,7 @@ module UserDecorator
   def avatar_image
     if profile&.avatar&.attached?
       # &.attached?で画像がアップロードされているか調べる
-      profile.avatar.variant(resize: "100x100")
+      profile.avatar
     else
       'default-avatar.png'
     end

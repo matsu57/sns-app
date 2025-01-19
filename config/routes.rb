@@ -20,5 +20,5 @@ Rails.application.routes.draw do
     resources :unfollows, only: [:create]
   end
 
-  resource :profile, only: [:show, :update]
+  resource :profile, only: [:show, :edit, :update]
 end
