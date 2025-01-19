@@ -14,13 +14,11 @@ class ProfilesController < ApplicationController
     @profile = current_user.prepare_profile
     @profile.assign_attributes(profile_params)
     if @profile.save
-      flash[:notice] = 'プロフィール更新完了'
+      redirect_to profile_path, notice: 'プロフィール更新完了'
     else
-      flash[:error] = 'プロフィール更新に失敗しました'
-      # エラーメッセージも含める
-      flash[:errors] = @profile.errors.full_messages.join(', ')
+      flash.now[:error] = 'プロフィール更新に失敗しました'
+      render :edit
     end
-    redirect_to profile_path
   end
 
   private
