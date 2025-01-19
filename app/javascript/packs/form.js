@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const submitButton = document.getElementById("submit_button");
   const contentTextarea = document.querySelector('textarea[name="article[content]"]');
   const imageUpload = document.getElementById("imageUpload");
+  const fileNamePreview = document.getElementById("file-name");
 
   const validateForm = () => {
     const isContentValid = contentTextarea.value.trim() !== "";
@@ -19,5 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
   validateForm(); //初期状態を設定
 
   contentTextarea.addEventListener("input", validateForm);
-  imageUpload.addEventListener("change", validateForm);
+  imageUpload.addEventListener("change", (event) => {
+    const files = event.target.files;
+    let fileNames = [];
+    for (let i = 0; i < files.length; i++) {
+      fileNames.push(files[i].name);
+    }
+    fileNamePreview.textContent = fileNames.join(", ");
+    validateForm();
+  });
 });
