@@ -12,6 +12,11 @@ module ArticlesHelper
   end
 
   def display_create_at(article)
-    I18n.l(article.created_at, format: :default)
+    hours_ago = ((Time.zone.now - article.created_at) / 1.hour).floor
+    if hours_ago > 24
+      I18n.l(article.created_at, format: :default)
+    else
+      "#{hours_ago} hours ago"
+    end
   end
 end
