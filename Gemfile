@@ -39,6 +39,7 @@ gem 'binding_of_caller'
 gem 'devise'
 gem 'faker'
 gem 'hamlit'
+gem 'image_processing', '~> 1.2'
 gem 'sidekiq'
 
 group :development, :test do
