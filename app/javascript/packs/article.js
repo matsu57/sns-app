@@ -3,7 +3,6 @@ import { csrfToken } from "rails-ujs";
 
 axios.defaults.headers.common["X-CSRF-Token"] = csrfToken();
 
-import { imageDisplay } from "modules/image_display";
 import { heartListener } from "modules/heart_listener";
 
 const handleHeartDisplay = (hasLiked, activeHeart, inactiveHeart) => {
@@ -23,10 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const articleId = article.dataset.articleId;
     const activeHeart = article.querySelector(".article_body_icon_heart.active-heart");
     const inactiveHeart = article.querySelector(".article_body_icon_heart.inactive-heart");
-
-    // 画像の表示サイズの調整
-    const imageContainer = article.querySelector(".article_body_image");
-    imageDisplay(imageContainer);
 
     // サーバーからいいね状態を取得
     axios
