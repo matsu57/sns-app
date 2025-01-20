@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const submitButton = document.getElementById("submit_button");
+  const submitButton = document.getElementById("submitButton");
   const contentTextarea = document.querySelector('textarea[name="article[content]"]');
   const imageUpload = document.getElementById("imageUpload");
-  const fileNamePreview = document.getElementById("file-name");
+  const fileNameList = document.getElementById("fileNameList");
+  const albumButton = document.getElementById("albumButton");
+  const warningMessage = document.getElementById("warningMessage");
 
   const validateForm = () => {
     const isContentValid = contentTextarea.value.trim() !== "";
@@ -22,11 +24,27 @@ document.addEventListener("DOMContentLoaded", () => {
   contentTextarea.addEventListener("input", validateForm);
   imageUpload.addEventListener("change", (event) => {
     const files = event.target.files;
-    let fileNames = [];
-    for (let i = 0; i < files.length; i++) {
-      fileNames.push(files[i].name);
+
+    //リストと警告をクリア
+    fileNameList.innerHTML = "";
+    warningMessage.textContent = "";
+
+    if (files.length > 4) {
+      warningMessage.textContent = "Please select no more than 4 images";
     }
-    fileNamePreview.textContent = fileNames.join(", ");
+    else {
+      // file名の表示
+      for (let i = 0; i < files.length; i++) {
+        const li = document.createElement("li");
+        li.textContent = files[i].name;
+        fileNameList.appendChild(li);
+      }
+    }
+
     validateForm();
+  });
+
+  albumButton.addEventListener("click", () => {
+    imageUpload.click();
   });
 });

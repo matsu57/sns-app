@@ -5,7 +5,7 @@
     .header_center
       Status
     .header_right
-      = button_tag("Post", type: "submit", form: "post_form", class: "form_submit color-gray", id: "submit_button", disabled: true)
+      = button_tag("Post", type: "submit", form: "post_form", class: "form_submit color-gray", id: "submitButton", disabled: true)
 
   .user
     .user_avatar
@@ -20,8 +20,11 @@
       %div
         = f.text_area :content, class: "form_textarea", placeholder: "What's on your mind ?"
       %div
-        = f.file_field :images, multiple: true, accept: '.jpeg, .jpg, .gif, .png, .bmp', id: 'imageUpload', class: 'form_album'
+        = f.file_field :images, style: 'display: none;', multiple: true, accept: '.jpeg, .jpg, .gif, .png, .bmp', id: 'imageUpload'
 
-    %span#file-name
+    %button.form_album#albumButton + Album
+    .form_select
+      %ul#fileNameList
+      %p#warningMessage
 
 = javascript_pack_tag 'form'
