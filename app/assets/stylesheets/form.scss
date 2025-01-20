@@ -23,7 +23,7 @@
 
   &_textarea{
     resize: vertical;
-    // height: 44px;
+    height: 44px;
   }
 
   &_link {
@@ -43,17 +43,22 @@
     background-color: $primary-color;
   }
 
-  // &_album {
-  //   margin-top: 20px;
-  //   width: 100%;
-  //   border: none;
-  //   font-size: 14px;
-  //   padding: 14px;
-  //   background-color: $primary-color;
-  // }
-
-  &_submit {
-    
+  &_album {
+    border: 1px solid #E0E0E0;
+    font-size: 12px;
+    padding: 3px 10px;
   }
 
+  &_select {
+    ul {
+      margin-top: 10px;
+      list-style: none;
+      li {
+        font-size: 12px;
+      }
+    }
+    p {
+      font-size: 12px;
+    }
+  }
 }
