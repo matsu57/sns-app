@@ -1,0 +1,11 @@
+.container
+  .detail_header.header
+    .header_left
+      = link_to '←', root_path
+    .header_center
+    .header_right
+
+  .detail
+    = render 'commons/article', article: @article, detail: true
+
+= javascript_pack_tag 'article'
