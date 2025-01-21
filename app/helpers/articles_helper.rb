@@ -19,4 +19,9 @@ module ArticlesHelper
       "#{hours_ago} hours ago"
     end
   end
+
+  def image_count_class(article, detail = false)
+    return if detail
+    "image-count-#{article.images.length}"
+  end
 end

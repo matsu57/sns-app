@@ -9,7 +9,7 @@
         = display_create_at(article)
   .article_body
     = link_to article_path(article) do
-      .article_body_image{class: !local_assigns[:detail] && "image-count-#{article.images.length}"}
+      .article_body_image{class: image_count_class(article, local_assigns[:detail])}
         - article.images.each do |image|
           = image_tag(image)
     .article_body_icon
