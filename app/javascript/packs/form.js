@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const albumButton = document.getElementById("albumButton");
   const warningMessage = document.getElementById("warningMessage");
 
+  // 入力のチェック
   const validateForm = () => {
     const isContentValid = contentTextarea.value.trim() !== "";
     const isImageValid = imageUpload.files.length > 0;
@@ -19,31 +20,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  validateForm(); //初期状態を設定
-
-  contentTextarea.addEventListener("input", validateForm);
-  imageUpload.addEventListener("change", (event) => {
-    const files = event.target.files;
-
-    //リストと警告をクリア
+  // fileNameListの更新
+  const updateFileNameList = (files) => {
+    // リストと警告をクリア
     fileNameList.innerHTML = "";
     warningMessage.textContent = "";
 
     if (files.length > 4) {
       warningMessage.textContent = "Please select no more than 4 images";
-    }
-    else {
+    } else {
       // file名の表示
-      for (let i = 0; i < files.length; i++) {
+      Array.from(files).forEach((file) => {
         const li = document.createElement("li");
-        li.textContent = files[i].name;
+        li.textContent = file.name;
         fileNameList.appendChild(li);
-      }
+      });
     }
+  };
 
+  // 初期状態を設定
+  validateForm();
+
+  // textareaのチェック
+  contentTextarea.addEventListener("input", validateForm);
+
+  // 画像選択のチェック
+  imageUpload.addEventListener("change", (event) => {
+    updateFileNameList(event.target.files);
     validateForm();
   });
 
+  //自作のボタンがクリックされたとき、初期フォームがクリックされたようにする
   albumButton.addEventListener("click", () => {
     imageUpload.click();
   });

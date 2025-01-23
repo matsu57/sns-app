@@ -1,0 +1,36 @@
+.article{data: {article_id: article.id}}
+  = link_to account_path(article.user), class: 'article_header' do
+    .article_header_userImage
+      = image_tag article.user.avatar_image
+    .article_header_info
+      .article_header_userName
+        = article.user.username
+      .article_header_time
+        = display_create_at(article)
+  .article_body
+    = link_to article_path(article) do
+      .article_body_image{class: image_count_class(article, local_assigns[:detail])}
+        - article.images.each do |image|
+          = image_tag(image)
+    .article_body_icon
+      .article_body_icon_heart.inactive-heart
+        = image_tag 'heart.svg'
+      .article_body_icon_heart.active-heart.hidden
+        = image_tag 'heart-active.svg'
+      .article_body_icon_comment
+        = link_to article_comments_path(article) do
+          = image_tag 'comment.svg'
+          = comments_count_display(article)
+      .article_body_icon_share
+        = link_to "https://twitter.com/share?url=#{article_url(article)}%0a%0a#{article.content}", target: '_blank', data: { toggle: "tooltip", placement: "bottom" }, title: "Xでシェア" do
+          = image_tag 'share.svg'
+    .article_body_likeCount
+      %p= likes_count_display(article)
+
+    .article_body_content
+      %p= article.user.username
+      %p= article.content
+    - if article.user == current_user
+      .article_body_delete
+        = link_to article_path(article), data: {method: 'delete', confirm: '本当に削除してもよろしいですか?'} do
+          =image_tag 'delete.svg'
