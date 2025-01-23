@@ -65,6 +65,16 @@ article:first-child {
           height: inherit;
         }
       }
+
+      &_comment {
+        a {
+          display: flex;
+
+          p {
+            margin-left: 5px;
+          }
+        }
+      }
     }
     &_likeCount {
       margin-top: 8px;

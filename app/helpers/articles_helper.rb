@@ -11,6 +11,13 @@ module ArticlesHelper
     end
   end
 
+  def comments_count_display(article)
+    count = article.comments.count
+    if count > 0
+      content_tag(:p, count)
+    end
+  end
+
   def display_create_at(article)
     hours_ago = ((Time.zone.now - article.created_at) / 1.hour).floor
     if hours_ago > 24

@@ -20,6 +20,7 @@
       .article_body_icon_comment
         = link_to article_comments_path(article) do
           = image_tag 'comment.svg'
+          = comments_count_display(article)
       .article_body_icon_share
         = link_to "https://twitter.com/share?url=#{article_url(article)}%0a%0a#{article.content}", target: '_blank', data: { toggle: "tooltip", placement: "bottom" }, title: "Xでシェア" do
           = image_tag 'share.svg'
