@@ -12,10 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const isImageValid = imageUpload.files.length > 0;
 
     if (isContentValid && isImageValid) {
-      submitButton.disabled = false;
       submitButton.classList.remove("color-gray");
     } else {
-      submitButton.disabled = true;
       submitButton.classList.add("color-gray");
     }
   };
