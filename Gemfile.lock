@@ -111,6 +111,11 @@ GEM
       html2haml
     erubi (1.13.0)
     erubis (2.7.0)
+    factory_bot (6.4.5)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
     faker (3.4.2)
       i18n (>= 1.8.11, < 2)
     ffi (1.15.5)
@@ -365,6 +370,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   devise
   erb2haml
+  factory_bot_rails
   faker
   ffi (~> 1.15.0)
   hamlit

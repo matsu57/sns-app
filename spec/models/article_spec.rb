@@ -1,13 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Article, type: :model do
-  let!(:user) do
-    User.create!({
-      email: 'test@examlpe.com',
-      password: 'password',
-      username: 'test1'
-    })
-  end
+  let!(:user) { create(:user) }
 
   context 'タイトルと内容が入力されている場合' do
     let(:article) do
@@ -22,6 +16,7 @@ RSpec.describe Article, type: :model do
     end
 
     it '記事を保存できる' do
+      puts user.username
       expect(article).to be_valid
     end
   end
