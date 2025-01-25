@@ -10,12 +10,15 @@ RSpec.describe Article, type: :model do
   end
 
   context 'タイトルと内容が入力されている場合' do
-    let!(:article) do
-      user.articles.build({
-        content: Faker::Lorem.sentence(word_count: 8),
-        # imagesにActiveStorage::Blobオブジェクトを配列で設定
-        images: [ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app/assets/images/login-bg.png')), filename: 'login-bg.png', content_type: 'image/png')] 
-      })
+    let(:article) do
+      article = user.articles.build(
+        content: Faker::Lorem.sentence(word_count: 5)
+      )
+      article.images.attach(
+        io: File.open(Rails.root.join('app/assets/images/login-bg.png')),
+        filename: 'login-bg.png'
+      )
+      article
     end
 
     it '記事を保存できる' do
@@ -24,12 +27,15 @@ RSpec.describe Article, type: :model do
   end
 
   context '内容が入力されていない場合' do
-    let!(:article) do
-      user.articles.create({
-        content: '',
-        # imagesにActiveStorage::Blobオブジェクトを配列で設定
-        images: [ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join('app/assets/images/login-bg.png')), filename: 'login-bg.png', content_type: 'image/png')] 
-      })
+    let(:article) do
+      article = user.articles.create(
+        content: ''
+      )
+      article.images.attach(
+        io: File.open(Rails.root.join('app/assets/images/login-bg.png')),
+        filename: 'login-bg.png'
+      )
+      article
     end
 
     it '記事を保存できない' do
