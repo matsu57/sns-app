@@ -5,7 +5,7 @@ RSpec.describe Article, type: :model do
 
   context '内容と画像が入力されている場合' do
     let!(:article) do
-      article = user.articles.build({
+      article = user.articles.create({
         content: Faker::Lorem.sentence(word_count: 5)
       })
       article.images.attach(
@@ -23,7 +23,7 @@ RSpec.describe Article, type: :model do
 
   context '内容が入力され選択画像が4枚以下の場合' do
     let!(:article) do
-      article = user.articles.build({
+      article = user.articles.create({
         content: Faker::Lorem.sentence(word_count: 5)
       })
       article.images.attach(
@@ -56,7 +56,7 @@ RSpec.describe Article, type: :model do
 
   context '内容が入力されていない場合' do
     let!(:article) do
-      article = user.articles.create({
+      article = user.articles.build({
         content: ''
       })
       article.images.attach(
@@ -67,6 +67,10 @@ RSpec.describe Article, type: :model do
       article
     end
 
+    before do
+      article.save
+    end
+
     it '記事を保存できない' do
       expect(article.errors.messages[:content][0]).to eq("can't be blank")
     end
@@ -74,9 +78,13 @@ RSpec.describe Article, type: :model do
 
   context '画像が選択されていない場合' do
     let!(:article) do
-      article = user.articles.create({
+      article = user.articles.build({
         content: Faker::Lorem.sentence(word_count: 5)
       })
+    end
+
+    before do
+      article.save
     end
 
     it '記事を保存できない' do
@@ -86,7 +94,7 @@ RSpec.describe Article, type: :model do
 
   context '内容は入力されているが、画像が5枚以上の場合' do
     let!(:article) do
-      article = user.articles.create({
+      article = user.articles.build({
         content: Faker::Lorem.sentence(word_count: 5)
       })
       article.images.attach(
@@ -117,8 +125,11 @@ RSpec.describe Article, type: :model do
       article
     end
 
+    before do
+      article.save
+    end
+
   it '記事を保存できない' do
-    expect(article).not_to be_valid #自作のバリデーションをつかっているため、バリデーションチェックを開始するスイッチのような役割
     expect(article.errors.messages[:base][0]).to eq("Please select no more than 4 images")
     end
   end
