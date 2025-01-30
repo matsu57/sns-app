@@ -26,15 +26,16 @@ RSpec.describe Comment, type: :model do
       ActionMailer::Base.deliveries.clear
     end
 
-    it 'メールが送られる' do
+    it 'コメントは保存され、メールが送られる' do
       comment_content = "@recipient_user #{Faker::Lorem.sentence(word_count: 5)}"
 
       expect {
-        comment = article.comments.create!({
+        @comment = article.comments.create!({
           content: comment_content,
           user: user
         })
       }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      expect(@comment).to be_valid
     end
   end
 end
