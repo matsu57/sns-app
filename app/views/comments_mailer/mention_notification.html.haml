@@ -3,4 +3,6 @@
 %p 内容：#{@comment}
 
 %p コメントを確認するには以下のリンクをクリックしてください：
-= link_to 'コメントを確認する', article_comments_url(@article_id), target: '_blank'
+-# = link_to 'コメントを確認する', article_comments_url(@article.id), target: '_blank'
+-# テスト用のhost設定
+= link_to 'コメントを確認する', article_comments_url(@article.id, host: @host), target: '_blank'
