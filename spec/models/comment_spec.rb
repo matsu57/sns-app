@@ -60,4 +60,23 @@ RSpec.describe Comment, type: :model do
       expect(@comment).to be_valid
     end
   end
+
+  context '内容が入力されていない場合' do
+    let!(:article) { create(:article) }
+    let!(:comment) do
+      article.comments.build({
+        content: '',
+        user: user
+      })
+    end
+
+    before do
+      comment.save
+    end
+    it 'コメントを保存できない' do
+      expect(comment.save).to be false
+      expect(Comment.count).to eq(0)
+      expect(comment.errors.messages[:content][0]).to eq("can't be blank")
+    end
+  end
 end

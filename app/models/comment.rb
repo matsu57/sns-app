@@ -20,6 +20,8 @@ class Comment < ApplicationRecord
 
   after_create :check_mentions
 
+  validates :content, presence: true
+
   private
 
   def check_mentions
