@@ -21,7 +21,7 @@ class Article < ApplicationRecord
 
   validates :content, presence: true
   validates :images,
-    attached_file_presence: true,
-    attached_file_number: { maximum: 4 },
-    attached_file_size: { maximum: 5.megabytes }
+  attached_file_number: { maximum: 4 },
+  attached_file_size: { maximum: 5.megabytes },
+  attached_file_presence: true #Active Recordの汎用的なバリデーションで、ActiveStorageのバリデーションよりも先に評価されてしまうので最後に記載。
 end

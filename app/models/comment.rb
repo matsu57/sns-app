@@ -20,6 +20,8 @@ class Comment < ApplicationRecord
 
   after_create :check_mentions
 
+  validates :content, presence: true
+
   private
 
   def check_mentions
@@ -33,6 +35,8 @@ class Comment < ApplicationRecord
   end
 
   def send_email(recipient, sender, comment)
-    CommentsMailer.mention_notification(recipient, sender, comment).deliver_later
+    # CommentsMailer.mention_notification(recipient, sender, comment).deliver_later
+    # testの時はdeliver_nowを使う
+    CommentsMailer.mention_notification(recipient, sender, comment).deliver_now
   end
 end
