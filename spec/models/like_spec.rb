@@ -26,7 +26,7 @@ RSpec.describe Like, type: :model do
     end
 
     it 'いいねが重複して作成されない' do
-      expect(like2.errors[:user_id]).to include("has already been taken")
+      expect(like2.errors.messages[:user_id][0]).to eq("has already been taken")
     end
   end
 end
