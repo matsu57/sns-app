@@ -30,7 +30,7 @@ const heartListener = () => {
       const likesCountElement = articleElement.querySelector(".article_body_likeCount p");
 
       axios
-        .post(`/articles/${likeArticleId}/like`)
+        .post(`/api/articles/${likeArticleId}/like`)
         .then((response) => {
           if (response.data.status === "ok") {
             parentElement.classList.add("hidden");
@@ -53,7 +53,7 @@ const heartListener = () => {
       const likesCountElement = articleElement.querySelector(".article_body_likeCount p");
 
       axios
-        .delete(`/articles/${likeArticleId}/like`)
+        .delete(`/api/articles/${likeArticleId}/like`)
         .then((response) => {
           if (response.data.status === "ok") {
             parentElement.classList.add("hidden");

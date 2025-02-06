@@ -1,9 +1,10 @@
-class CommentsController < ApplicationController
+class Api::CommentsController < Api::ApplicationController
   before_action :authenticate_user!
   before_action :set_article
 
   def index
     comments = @article.comments.order(created_at: :desc)
+    render :index
   end
 
   def create

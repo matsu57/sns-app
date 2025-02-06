@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // サーバーからいいね状態を取得
     axios
-      .get(`/articles/${articleId}/like`)
+      .get(`/api/articles/${articleId}/like`)
       .then((response) => {
         const hasLiked = response.data.hasLiked;
         const lastLikeUsername = response.data.lastLikeUsername;
