@@ -4,11 +4,6 @@ class CommentsController < ApplicationController
 
   def index
     comments = @article.comments.order(created_at: :desc)
-    # render json: comments
-  end
-
-  def new
-    @comment = @article.comments.build
   end
 
   def create
