@@ -4,7 +4,6 @@ class Api::CommentsController < Api::ApplicationController
 
   def index
     comments = @article.comments.order(created_at: :desc)
-    render :index
   end
 
   def create
