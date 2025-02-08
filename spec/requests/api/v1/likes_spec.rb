@@ -15,17 +15,26 @@ RSpec.describe 'Api::Likes', type: :request do
         expect(response).to have_http_status(200)
       end
 
-      it 'いいねステータスを返す' do
+      it 'いいねステータス(false)を返す' do
         get api_like_path(article_id: article.id)
-        expect(JSON.parse(response.body)).to include('hasLiked' => false)
+        body = JSON.parse(response.body)
+        expect(body['hasLiked']).to eq(false)
+      end
+
+      it 'いいねステータス(true)を返す' do
+        article.likes.create!(user: user)
+        get api_like_path(article_id: article.id)
+        body = JSON.parse(response.body)
+        expect(body['hasLiked']).to eq(true)
       end
     end
 
-    # context '未認証ユーザーの場合' do
-    #   it '401ステータスが返ってくる' do
-    #     get api_article_like_path(article_id: article.id)
-    #     expect(response).to have_http_status(401)
-    #   end
-    # end
+    context 'ログインしていない場合' do
+      it '401ステータスが返ってくる' do
+        get api_like_path(article_id: article.id)
+        expect(response).to have_http_status(401)
+      end
+    end
   end
+
 end

@@ -19,7 +19,8 @@ class Api::V1::LikesController < Api::ApplicationController
   def destroy
     like = @article.likes.find_by(user_id: current_user.id)
     like.destroy!
-    render json: { status: 'ok',
+    render json: {
+      status: 'ok',
       likesCount: @article.reload.likes.count,
       lastLikeUsername: @article.reload.likes.last&.user&.username
     }
