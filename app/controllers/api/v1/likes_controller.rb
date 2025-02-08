@@ -1,4 +1,4 @@
-class Api::LikesController < Api::ApplicationController
+class Api::V1::LikesController < Api::ApplicationController
   before_action :authenticate_user!
   before_action :set_article
 
