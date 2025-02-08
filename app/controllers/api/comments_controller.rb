@@ -2,10 +2,6 @@ class Api::CommentsController < Api::ApplicationController
   before_action :authenticate_user!
   before_action :set_article
 
-  def index
-    comments = @article.comments.order(created_at: :desc)
-  end
-
   def create
     @comment = @article.comments.build(comment_params)
     @comment.user = current_user

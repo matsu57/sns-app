@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   root to: 'articles#index'
   resource :timeline, only: [:show]
 
-  resources :articles
+  resources :articles do
+    resources :comments, only: [:index]
+  end
 
   resources :accounts, only: [:show] do
     resources :follows, only: [:index, :show, :create]
@@ -21,7 +23,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     scope '/articles/:article_id' do
-      resources :comments, only: [:index, :create]
+      resources :comments, only: [:create], defaults: { format: :json }
       resource :like, only: [:show, :create, :destroy], defaults: { format: :json }
     end
   end

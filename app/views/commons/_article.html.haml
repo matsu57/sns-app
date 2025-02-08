@@ -18,7 +18,7 @@
       .article_body_icon_heart.active-heart.hidden
         = image_tag 'heart-active.svg'
       .article_body_icon_comment
-        = link_to api_comments_path(article) do
+        = link_to article_comments_path(article) do
           = image_tag 'comment.svg'
           = comments_count_display(article)
       .article_body_icon_share
