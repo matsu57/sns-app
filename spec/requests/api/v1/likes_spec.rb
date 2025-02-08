@@ -60,4 +60,27 @@ RSpec.describe 'Api::Likes', type: :request do
     end
   end
 
+  describe 'DELETE /api/articles/:article_id/like' do
+    context 'ログインしている場合' do
+      before do
+        sign_in user
+        article.likes.create!(user: user)
+      end
+
+      it 'いいねを外せる' do
+        delete api_like_path(article_id: article.id)
+        body = JSON.parse(response.body)
+        expect(body['status']).to eq('ok')
+        expect(body['likesCount']).to eq(0)
+        expect(body['lastLikeUsername']).to be_nil
+      end
+    end
+
+    context 'ログインしていない場合' do
+      it '401ステータスが返ってくる' do
+        delete api_like_path(article_id: article.id)
+        expect(response).to have_http_status(401)
+      end
+    end
+  end
 end
