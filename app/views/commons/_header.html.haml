@@ -1,7 +1,10 @@
-.header
+.header#sign-in{data: {signin_status: user_signed_in? ? "true" : "false"}}
   .header_left
-    = link_to new_article_path do
-      = image_tag 'photo-camera.svg'
+    - if current_page?(root_path)
+      = link_to new_article_path do
+        = image_tag 'photo-camera.svg'
+    - else
+      = link_to '←', root_path
   .header_center
   .header_right
     - if user_signed_in?
