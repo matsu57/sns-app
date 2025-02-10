@@ -69,4 +69,18 @@ RSpec.describe 'Articles', type: :request do
       end
     end
   end
+
+  describe 'GET /articles/:id' do
+    context 'ログイン状態に関係なく、articleが存在する場合' do
+      let!(:article) { create(:article) }
+
+      it "記事の詳細が表示される" do
+        get article_path(article)
+        expect(response).to have_http_status(200)
+        expect(response.body).to include(article.content)
+        expect(response.body).to include('test1.png')
+        expect(response.body).to include(article.user.username)
+      end
+    end
+  end
 end
