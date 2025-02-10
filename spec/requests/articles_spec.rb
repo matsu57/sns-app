@@ -46,4 +46,27 @@ RSpec.describe 'Articles', type: :request do
       end
     end
   end
+
+  describe 'GET /articles/new' do
+    context 'ログインしている場合' do
+      before do
+        sign_in user
+      end
+
+      it '入力フォームが表示される' do
+        get new_article_path
+        expect(response).to have_http_status(200)
+        expect(response.body).to include('name="article[content]"')
+        expect(response.body).to include('name="article[images][]"')
+      end
+    end
+
+    context 'ログインしていない場合' do
+      it 'ログイン画面に遷移する' do
+        get new_article_path
+        expect(response).to have_http_status(302)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+  end
 end
