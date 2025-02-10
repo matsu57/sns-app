@@ -83,4 +83,33 @@ RSpec.describe 'Articles', type: :request do
       end
     end
   end
+
+  describe 'DELETE /articles/:id' do
+    let!(:article) { create(:article, user: user) }
+    let!(:other_user) { create(:user) }
+    let!(:other_article) { create(:article, user: other_user) }
+
+    context 'ログインしていて、自分が作成した記事の場合' do
+      before do
+        sign_in user
+      end
+
+      it '記事が削除され、root_pathにリダイレクトされる' do
+        expect {
+          delete article_path(article)
+        }.to change(Article, :count).by(-1)
+
+        expect(response).to redirect_to(root_path)
+        expect(flash[:notice]).to eq '削除できました'
+      end
+    end
+
+    context 'ログインしていない場合' do
+      it 'ログイン画面に遷移する' do
+        get new_article_path
+        expect(response).to have_http_status(302)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+  end
 end
