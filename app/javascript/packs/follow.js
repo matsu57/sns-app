@@ -15,7 +15,7 @@ const handleFollowDisplay = (hasFollowed) => {
 };
 
 const handleFollowAction = (accountId, action) => {
-  const url = `/accounts/${accountId}/${action === "follow" ? "follows" : "unfollows"}`;
+  const url = `/api/account/${accountId}/${action === "follow" ? "follows" : "unfollows"}`;
 
   axios
     .post(url)
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const followingId = dataset.currentId;
 
   axios
-    .get(`/accounts/${accountId}/follows/${followingId}`)
+    .get(`/api/account/${accountId}/follows/${followingId}`)
     .then((response) => {
       const hasFollowed = response.data.hasFollowed;
       handleFollowDisplay(hasFollowed);
