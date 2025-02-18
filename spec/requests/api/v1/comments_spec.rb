@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Comments", type: :request do
+RSpec.describe 'Api::V1::Comments', type: :request do
   let!(:user) { create(:user) }
   let!(:article) { create(:article, user: user) }
 
-  describe "POST /api/articles/:article_id/comments" do
+  describe 'POST /api/articles/:article_id/comments' do
     context 'ログインしている場合' do
       before do
         sign_in user

@@ -56,8 +56,8 @@ RSpec.describe 'Articles', type: :request do
       it '入力フォームが表示される' do
         get new_article_path
         expect(response).to have_http_status(200)
-        expect(response.body).to include('name="article[content]"')
-        expect(response.body).to include('name="article[images][]"')
+        expect(response.body).to include('name='article[content]'')
+        expect(response.body).to include('name='article[images][]'')
       end
     end
 
@@ -74,7 +74,7 @@ RSpec.describe 'Articles', type: :request do
     context 'ログイン状態に関係なく、articleが存在する場合' do
       let!(:article) { create(:article) }
 
-      it "記事の詳細が表示される" do
+      it '記事の詳細が表示される' do
         get article_path(article)
         expect(response).to have_http_status(200)
         expect(response.body).to include(article.content)

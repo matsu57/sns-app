@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "Accounts", type: :request do
+RSpec.describe 'Accounts', type: :request do
   let!(:user) { create(:user) }
   let!(:other_user) { create(:user) }
 
-  describe "GET /accounts/:id" do
-    context "viewを開いたuserがカレントユーザーである場合" do
+  describe 'GET /accounts/:id' do
+    context 'viewを開いたuserがカレントユーザーである場合' do
       before do
         sign_in user
       end
@@ -16,7 +16,7 @@ RSpec.describe "Accounts", type: :request do
       end
     end
 
-    context "viewを開いたuserが他のユーザーである場合" do
+    context 'viewを開いたuserが他のユーザーである場合' do
       before do
         sign_in user
       end
@@ -27,7 +27,7 @@ RSpec.describe "Accounts", type: :request do
       end
     end
 
-    context "viewを開いたuserがログインしていない場合" do
+    context 'viewを開いたuserがログインしていない場合' do
       it 'ログイン画面に遷移する' do
         get account_path(other_user)
         expect(response).to have_http_status(302)

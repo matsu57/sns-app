@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe "Follows", type: :request do
+RSpec.describe 'Follows', type: :request do
   let!(:user) { create(:user) }
   let!(:followers) { create_list(:user, 3) }
   let!(:followings) { create_list(:user, 2) }
 
-  describe "GET /accounts/:account_id/follows" do
+  describe 'GET /accounts/:account_id/follows' do
     context 'ログインしていて、userがfollowされている場合' do
       before do
         sign_in user
         followers.each { |follower| follower.follow!(user) }
       end
 
-      it "follower一覧が表示される" do
+      it 'follower一覧が表示される' do
         get account_follows_path(account_id: user.id)
         expect(response).to have_http_status(200)
 
@@ -28,8 +28,8 @@ RSpec.describe "Follows", type: :request do
         sign_in user
         followings.each { |following| user.follow!(following) }
       end
-      it "following一覧が表示される" do
-        get account_follows_path(account_id: user.id, tab: "Following")
+      it 'following一覧が表示される' do
+        get account_follows_path(account_id: user.id, tab: 'Following')
         expect(response).to have_http_status(200)
 
         followings.each do |following|
@@ -43,7 +43,7 @@ RSpec.describe "Follows", type: :request do
       before do
         sign_in user
       end
-      it "200ステータスが返ってくる" do
+      it '200ステータスが返ってくる' do
         get account_follows_path(account_id: user.id)
         expect(response).to have_http_status(200)
       end
@@ -53,8 +53,8 @@ RSpec.describe "Follows", type: :request do
       before do
         sign_in user
       end
-      it "200ステータスが返ってくる" do
-        get account_follows_path(account_id: user.id, tab: "Following")
+      it '200ステータスが返ってくる' do
+        get account_follows_path(account_id: user.id, tab: 'Following')
         expect(response).to have_http_status(200)
       end
     end

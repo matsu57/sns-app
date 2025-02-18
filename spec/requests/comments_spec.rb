@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "Comments", type: :request do
+RSpec.describe 'Comments', type: :request do
   let!(:user) { create(:user) }
   let!(:article) { create(:article, user: user) }
   let!(:comments) { create_list(:comment, 3, article: article)}
 
-  describe "GET /articles/:article_id/comments" do
+  describe 'GET /articles/:article_id/comments' do
     context 'ログインしている場合' do
       before do
         sign_in user
