@@ -21,17 +21,16 @@ RSpec.describe 'Accounts', type: :request do
         sign_in user
       end
 
-      it '200ステータスが返ってくる' do
+      it 'アカウントページが表示される' do
         get account_path(other_user)
         expect(response).to have_http_status(200)
       end
     end
 
     context 'viewを開いたuserがログインしていない場合' do
-      it 'ログイン画面に遷移する' do
+      it 'アカウントページが表示される' do
         get account_path(other_user)
-        expect(response).to have_http_status(302)
-        expect(response).to redirect_to(new_user_session_path)
+        expect(response).to have_http_status(200)
       end
     end
   end
