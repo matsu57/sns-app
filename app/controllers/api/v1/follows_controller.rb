@@ -8,9 +8,12 @@ class Api::V1::FollowsController < Api::ApplicationController
   end
 
   def create
-    current_user.follow!(params[:account_id])
-    @user= User.find(params[:account_id])
-    render json: { status: 'ok', followersCount: @user.reload.followers.count }
+    if current_user.has_followed?(@user)
+      render json: { error: 'Already following this user', followersCount: @user.followers.count }
+    else
+      current_user.follow!(@user)
+      render json: { status: 'ok', followersCount: @user.followers.count }
+    end
   end
 
   private
