@@ -3,8 +3,6 @@ require 'rails_helper'
 RSpec.describe 'Api::V1::Follows', type: :request do
   let!(:user) { create(:user) }
   let!(:other_user) { create(:user) }
-  let!(:followers) { create_list(:user, 3) }
-  let!(:followings) { create_list(:user, 2) }
 
   describe 'POST /api/account/:account_id/unfollows' do
     context 'ログインしていて、other_userがuserをfollowしている場合' do
