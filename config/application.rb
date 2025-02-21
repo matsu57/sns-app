@@ -11,6 +11,12 @@ module SnsApp
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
+    # OpenSSLの対応
+    if Rails.env.test?
+      OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+    end
+
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
