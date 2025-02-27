@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Article', type: :system do
   let!(:user) { create(:user) }
   let!(:articles) { create_list(:article, 3, user: user) }
+  let!(:delete_article) { create(:article, user: user, content: 'delete article test') }
 
   it '記事一覧が表示される' do
     visit root_path
@@ -22,10 +23,10 @@ RSpec.describe 'Article', type: :system do
     before do
       sign_in user
       visit root_path
-      find(".header_left a[href='#{new_article_path}']").click
     end
 
-    it '記事の投稿ができる' do
+    it '記事の投稿ができる', js: true do
+      find(".header_left a[href='#{new_article_path}']").click
       expect(page).to have_css('.user_userName', text: user.username)
       fill_in 'article[content]', with: 'post article test'
       # ファイルパスを準備
@@ -48,15 +49,17 @@ RSpec.describe 'Article', type: :system do
     end
 
     it '文章のみの投稿はできない', js: true do
+      find(".header_left a[href='#{new_article_path}']").click
       expect(page).to have_css('.user_userName', text: user.username)
       fill_in 'article[content]', with: 'This is a test article'
       click_on 'Post'
       expect(page).to have_content("Images can't be blank", wait: 10)
       expect(page).to have_current_path(new_article_path)
-      expect(Article.count).to eq(3) #もとからあった3つの記事から増えない
+      expect(Article.count).to eq(4) #もとからあった4つの記事から増えない
     end
 
     it '画像のみの投稿はできない', js: true do
+      find(".header_left a[href='#{new_article_path}']").click
       expect(page).to have_css('.user_userName', text: user.username)
       # ファイルパスを準備
       file_path = Rails.root.join('app/assets/images/test2.png')
@@ -70,10 +73,11 @@ RSpec.describe 'Article', type: :system do
       click_on 'Post'
       expect(page).to have_content("Content can't be blank", wait: 10)
       expect(page).to have_current_path(new_article_path)
-      expect(Article.count).to eq(3) #もとからあった3つの記事から増えない
+      expect(Article.count).to eq(4) #もとからあった4つの記事から増えない
     end
 
-    it '記事の投稿をキャンセルできる' do
+    it '記事の投稿をキャンセルできる', js: true do
+      first(".header_left a[href='#{new_article_path}']").click
       expect(page).to have_css('.user_userName', text: user.username)
       fill_in 'article[content]', with: 'cancel article test'
       # ファイルパスを準備
@@ -93,6 +97,16 @@ RSpec.describe 'Article', type: :system do
       expect(page).to have_current_path(root_path, wait: 10)
       expect(page).not_to have_content('cancel article test')
       expect(page).not_to have_css("img[src*='test2.png']")
+      expect(Article.count).to eq(4)
+    end
+
+    it '自分で作成した記事を削除できる', js: true do
+      expect(page).to have_content('delete article test')
+      page.accept_confirm do
+        find(".article_body_delete a[href='#{article_path(delete_article)}']").click
+      end
+      expect(page).not_to have_content('delete article test')
+      expect(Article.count).to eq(3)
     end
   end
 end
