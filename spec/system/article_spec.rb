@@ -106,6 +106,7 @@ RSpec.describe 'Article', type: :system do
         find(".article_body_delete a[href='#{article_path(delete_article)}']").click
       end
       expect(page).not_to have_content('delete article test')
+      puts Article.count
       expect(Article.count).to eq(3)
     end
   end
