@@ -1,9 +1,5 @@
 .container
-  .detail_header.header
-    .header_left
-      = link_to '←', root_path
-    .header_center
-    .header_right
+  = render 'commons/header'
 
   .detail
     = render 'commons/article', article: @article, detail: true

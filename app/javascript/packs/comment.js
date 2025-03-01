@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
       window.alert("コメントを入力してください");
     } else {
       axios
-        .post(`/articles/${articleId}/comments`, {
+        .post(`/api/articles/${articleId}/comments`, {
           comment: { content: content },
         })
         .then((res) => {

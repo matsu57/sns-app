@@ -12,9 +12,12 @@
       = image_tag current_user.avatar_image
     .user_userName
       = current_user.username
-  %ul
-    - @article.errors.full_messages.each do |message|
-      %li= message
+
+  - if @article.errors.any?
+    %ul.error_messages
+      - @article.errors.full_messages.each do |message|
+        %li= message
+
   .form
     = form_with(model: @article, id: "post_form", local: true) do |f|
       %div

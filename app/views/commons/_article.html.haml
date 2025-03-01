@@ -8,7 +8,12 @@
       .article_header_time
         = display_create_at(article)
   .article_body
-    = link_to article_path(article) do
+    - if current_page?(root_path)
+      = link_to article_path(article) do
+        .article_body_image{class: image_count_class(article, local_assigns[:detail])}
+          - article.images.each do |image|
+            = image_tag(image)
+    - else
       .article_body_image{class: image_count_class(article, local_assigns[:detail])}
         - article.images.each do |image|
           = image_tag(image)

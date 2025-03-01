@@ -20,55 +20,52 @@ const likesCountDisplay = (likesCount, lastLikeUsername, likesCountElement) => {
   }
 };
 
-const heartListener = () => {
+const heartListener = (isSignIn) => {
   document.addEventListener("click", function (event) {
-    const parentElement = event.target.parentElement;
-    // クリックされた要素の親クラスにinactive-heartが含まれているとき
-    if (parentElement.classList.contains("inactive-heart")) {
-      const articleElement = event.target.closest(".article");
+    const targetElement = event.target;
+    const parentElement = targetElement.parentElement;
+
+    // いいね/いいね解除処理を共通化
+    const handleLike = (action, successCallback) => {
+      const articleElement = targetElement.closest(".article");
       const likeArticleId = articleElement.getAttribute("data-article-id");
       const likesCountElement = articleElement.querySelector(".article_body_likeCount p");
 
-      axios
-        .post(`/articles/${likeArticleId}/like`)
-        .then((response) => {
-          if (response.data.status === "ok") {
-            parentElement.classList.add("hidden");
-            parentElement.nextElementSibling.classList.remove("hidden");
-            const likesCount = response.data.likesCount;
-            const lastLikeUsername = response.data.lastLikeUsername;
-            likesCountDisplay(likesCount, lastLikeUsername, likesCountElement);
-          }
-        })
-        .catch((e) => {
-          window.alert("inactive-heart Error");
-          console.log(e);
-        });
+      if (isSignIn) {
+        axios[action](`/api/articles/${likeArticleId}/like`)
+          .then((response) => {
+            if (response.data.status === "ok") {
+              successCallback(response.data);
+              const likesCount = response.data.likesCount;
+              const lastLikeUsername = response.data.lastLikeUsername;
+              likesCountDisplay(likesCount, lastLikeUsername, likesCountElement);
+            }
+          })
+          .catch((error) => {
+            window.alert(e);
+          });
+      } else {
+        window.alert("いいねするにはサインインが必要です");
+      }
+    };
+
+    // クリックされた要素の親クラスにinactive-heartが含まれているとき（いいね）
+    if (parentElement.classList.contains("inactive-heart")) {
+      handleLike("post", (data) => {
+        parentElement.classList.add("hidden");
+        parentElement.nextElementSibling.classList.remove("hidden");
+      });
     }
 
-    // クリックされた要素の親クラスにactive-heartが含まれているとき
+    // クリックされた要素の親クラスにactive-heartが含まれているとき（いいね解除）
     else if (parentElement.classList.contains("active-heart")) {
-      const articleElement = event.target.closest(".article");
-      const likeArticleId = articleElement.getAttribute("data-article-id");
-      const likesCountElement = articleElement.querySelector(".article_body_likeCount p");
-
-      axios
-        .delete(`/articles/${likeArticleId}/like`)
-        .then((response) => {
-          if (response.data.status === "ok") {
-            parentElement.classList.add("hidden");
-            parentElement.previousElementSibling.classList.remove("hidden");
-            const likesCount = response.data.likesCount;
-            const lastLikeUsername = response.data.lastLikeUsername;
-            likesCountDisplay(likesCount, lastLikeUsername, likesCountElement);
-          }
-        })
-        .catch((e) => {
-          window.alert("active-heart Error");
-          console.log(e);
-        });
+      handleLike("delete", (data) => {
+        parentElement.classList.add("hidden");
+        parentElement.previousElementSibling.classList.remove("hidden");
+      });
     }
   });
 };
+
 
 export { heartListener };

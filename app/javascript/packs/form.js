@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // バリデーションエラーでarticles/newがarticlesに変化してしまうことの対策
+  if (document.querySelector(".error_messages")) {
+    history.replaceState("", "", "/articles/new");
+  }
+
   const submitButton = document.getElementById("submitButton");
   const contentTextarea = document.querySelector('textarea[name="article[content]"]');
   const imageUpload = document.getElementById("imageUpload");
