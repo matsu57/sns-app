@@ -21,7 +21,7 @@ RSpec.describe 'Article', type: :system do
 
   context 'ログインしている場合' do
     before do
-      login_as(user) #jsを使用しているテストでloginで不具合が発生するのでsign_in userを使わず自作の関数を使用
+      login_as(user) #capybaraを使用しているテストでloginの不具合が発生するのでsign_in userを使わず自作のHelperを使用
       visit root_path
     end
 
@@ -105,7 +105,6 @@ RSpec.describe 'Article', type: :system do
       page.accept_confirm do
         find(".article_body_delete a[href='#{article_path(delete_article)}']").click
       end
-      sleep 1
       expect(page).not_to have_content('delete article test')
       expect(Article.count).to eq(3)
     end
