@@ -21,7 +21,8 @@ RSpec.describe 'Article', type: :system do
 
   context 'ログインしている場合' do
     before do
-      sign_in user
+      login_as(user) #jsを使用しているテストでloginで不具合が発生するのでsign_in userを使わず自作の関数を使用
+      puts "ログイン済み"
       visit root_path
     end
 
@@ -46,6 +47,30 @@ RSpec.describe 'Article', type: :system do
       expect(page).to have_current_path(root_path, wait: 10)
       expect(page).to have_content('post article test')
       expect(page).to have_css("img[src*='test2.png']")
+    end
+
+    it '記事の投稿をキャンセルできる', js: true do
+      find(".header_left a[href='#{new_article_path}']").click
+      expect(page).to have_css('.user_userName', text: user.username)
+      fill_in 'article[content]', with: 'cancel article test'
+      # ファイルパスを準備
+      file_path = Rails.root.join('app/assets/images/test2.png')
+
+      # ファイルをアップロード(フォームを非表示にしているためmake_visible: trueが必要)
+      attach_file('imageUpload', file_path, make_visible: true)
+
+      # ファイル選択後にchangeイベントを強制的に発火(ファイル選択ダイアログを直接操作できないために必要)
+      execute_script("document.getElementById('imageUpload').dispatchEvent(new Event('change', { bubbles: true }))")
+
+      # 画像のプレビューが表示されるまで待機
+      expect(page).to have_css('.form_select ul li', text: 'test2.png', wait: 10)
+
+      click_on 'Canc'
+      # root_pathに遷移するのを確認
+      expect(page).to have_current_path(root_path, wait: 10)
+      expect(page).not_to have_content('cancel article test')
+      expect(page).not_to have_css("img[src*='test2.png']")
+      expect(Article.count).to eq(4)
     end
 
     it '文章のみの投稿はできない', js: true do
@@ -77,7 +102,7 @@ RSpec.describe 'Article', type: :system do
     end
 
     it '記事の投稿をキャンセルできる', js: true do
-      first(".header_left a[href='#{new_article_path}']").click
+      find(".header_left a[href='#{new_article_path}']").click
       expect(page).to have_css('.user_userName', text: user.username)
       fill_in 'article[content]', with: 'cancel article test'
       # ファイルパスを準備
@@ -105,8 +130,8 @@ RSpec.describe 'Article', type: :system do
       page.accept_confirm do
         find(".article_body_delete a[href='#{article_path(delete_article)}']").click
       end
+      sleep 1
       expect(page).not_to have_content('delete article test')
-      puts Article.count
       expect(Article.count).to eq(3)
     end
   end
