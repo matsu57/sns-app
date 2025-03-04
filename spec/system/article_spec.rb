@@ -64,7 +64,7 @@ RSpec.describe 'Article', type: :system do
       # 画像のプレビューが表示されるまで待機
       expect(page).to have_css('.form_select ul li', text: 'test2.png', wait: 10)
 
-      click_on 'Canc'
+      click_on 'Cancel'
       # root_pathに遷移するのを確認
       expect(page).to have_current_path(root_path, wait: 10)
       expect(page).not_to have_content('cancel article test')
