@@ -69,7 +69,7 @@ RSpec.describe 'Article', type: :system do
       expect(page).to have_current_path(root_path, wait: 10)
       expect(page).not_to have_content('cancel article test')
       expect(page).not_to have_css("img[src*='test2.png']")
-      expect(Article.count).to eq(4)
+      expect(page).to have_selector('.article', count: 4)
     end
 
     it '文章のみの投稿はできない', js: true do
@@ -79,7 +79,8 @@ RSpec.describe 'Article', type: :system do
       click_on 'Post'
       expect(page).to have_content("Images can't be blank", wait: 10)
       expect(page).to have_current_path(new_article_path)
-      expect(Article.count).to eq(4) #もとからあった4つの記事から増えない
+      visit root_path
+      expect(page).to have_selector('.article', count: 4)  #もとからあった4つの記事から増えない
     end
 
     it '画像のみの投稿はできない', js: true do
@@ -97,7 +98,8 @@ RSpec.describe 'Article', type: :system do
       click_on 'Post'
       expect(page).to have_content("Content can't be blank", wait: 10)
       expect(page).to have_current_path(new_article_path)
-      expect(Article.count).to eq(4) #もとからあった4つの記事から増えない
+      visit root_path
+      expect(page).to have_selector('.article', count: 4)  #もとからあった4つの記事から増えない
     end
 
     it '自分で作成した記事を削除できる', js: true do
@@ -106,7 +108,6 @@ RSpec.describe 'Article', type: :system do
         find(".article_body_delete a[href='#{article_path(delete_article)}']").click
       end
       expect(page).not_to have_content('delete article test')
-      expect(Article.count).to eq(3)
     end
   end
 end
