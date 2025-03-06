@@ -110,5 +110,20 @@ RSpec.describe 'Article', type: :system do
       expect(page).not_to have_content('delete article test')
       expect(page).to have_selector('.article', count: 3)
     end
+
+    it 'いいねする', js: true do
+      find('.inactive-heart', match: :first).click
+      expect(page).to have_selector('.inactive-heart', count: 3)
+      expect(page).to have_selector('.active-heart', count: 1)
+      expect(page).to have_content("#{user.username} liked your post")
+    end
+
+    it 'いいねを外す', js: true do
+      find('.inactive-heart', match: :first).click
+      find('.active-heart', match: :first).click
+      expect(page).to have_selector('.inactive-heart', count: 4)
+      expect(page).to have_selector('.active-heart', count: 0)
+      expect(page).not_to have_content("#{user.username} liked your post")
+    end
   end
 end
