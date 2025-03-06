@@ -19,6 +19,16 @@ RSpec.describe 'Article', type: :system do
     expect(page).to have_css('.article_body_content', text: article.content)
   end
 
+  it '共有リンクをクリックすると新しいウィンドウでX(twitter)が開くこと', js: true do
+    visit root_path
+    new_window = window_opened_by do
+      click_link 'Xでシェア', match: :first
+    end
+    within_window new_window do
+      expect(page.current_url).to include('x.com')
+    end
+  end
+
   context 'ログインしている場合' do
     before do
       login_as(user) #capybaraを使用しているテストでloginの不具合が発生するのでsign_in userを使わず自作のHelperを使用
