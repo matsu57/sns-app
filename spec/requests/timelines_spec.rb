@@ -36,14 +36,14 @@ RSpec.describe "Timelines", type: :request do
         create(:like, article: @article6, user: unfollowed_user, created_at: 18.hours.ago)
       end
 
-      it '正しい記事が取得されること' do
+      it '正しい記事が取得される' do
         get timeline_path
         like_articles = controller.instance_variable_get('@like_articles')
         expect(like_articles).not_to include(@article1)  # 24時間以上前の記事
         expect(like_articles.all? { |article| article.likes.where('created_at >= ?', 24.hours.ago).exists? }).to be true
       end
 
-      it 'いいねが多い記事が新着順に並んでいること' do
+      it 'いいねが多い記事が新着順に並んでいる' do
         get timeline_path
         like_articles = controller.instance_variable_get('@like_articles')
         actual_order = like_articles.map { |a| [a.id, a.likes.count] }
@@ -53,7 +53,7 @@ RSpec.describe "Timelines", type: :request do
         expect(actual_order).to eq(expected_order)
       end
 
-      it '結果が5件に制限されていること' do
+      it '結果が5件に制限されている' do
         get timeline_path
         like_articles = controller.instance_variable_get('@like_articles')
         expect(like_articles.size).to eq(5)

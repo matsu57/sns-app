@@ -28,7 +28,7 @@ RSpec.describe "Profiles", type: :request do
     context "ログインしている場合" do
       before do
         sign_in user
-        user.prepare_profile  # profileを準備する
+        user.prepare_profile.save!  # profileを準備する
       end
       it "avatarが更新できる" do
         expect(user.profile).to be_present
