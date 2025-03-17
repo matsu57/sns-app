@@ -82,4 +82,31 @@ RSpec.describe User, type: :model do
       expect(user.errors.messages[:email][0]).to include("is invalid")
     end
   end
+
+  describe 'prepare_profile' do
+    subject { user.prepare_profile }
+
+    context 'プロフィールが存在しない場合' do
+      let(:user) { create(:user) }
+
+      it '新しいプロフィールをbuildするが保存はしない' do
+        expect(user.profile).to be_nil
+        expect { subject }.not_to change(Profile, :count) # buildなのでDBレコード数は変わらない
+        expect(subject).to be_a(Profile) # Profileオブジェクトが返る
+        expect(subject.persisted?).to be false # 保存されていない状態を確認
+        expect(user.profile).to eq(subject) # ユーザーに関連付けられている
+      end
+    end
+
+    context 'プロフィールが既に存在する場合' do
+      let!(:profile) { create(:profile) }
+      let(:user) { profile.user } # プロフィールからユーザーを取得
+
+      it '既存のプロフィールを返す' do
+        expect { subject }.not_to change(Profile, :count)
+        expect(subject).to eq(profile)
+        expect(subject.persisted?).to be true
+      end
+    end
+  end
 end

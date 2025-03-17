@@ -59,7 +59,6 @@ class User < ApplicationRecord
     relation.destroy!
   end
 
-
   def has_followed?(user)
     following_relationships.exists?(following_id: user.id)
   end
