@@ -186,12 +186,10 @@ RSpec.describe User, type: :model do
     end
   end
 
-
   describe 'unfollow!' do
     subject { user1.unfollow!(user2) }
     let!(:user1) { create(:user) }
     let!(:user2) { create(:user) }
-    let!(:another_user) { create(:user) }
 
     context 'すでにフォロー関係がある場合' do
       before do
@@ -211,7 +209,48 @@ RSpec.describe User, type: :model do
     end
   end
 
-  # describe 'has_followed?' do
+  describe 'has_followed?' do
+    subject { user1.has_followed?(user2) }
+    let!(:user1) { create(:user) }
+    let!(:user2) { create(:user) }
 
-  # end
+    context 'フォロー関係が存在する場合' do
+      before do
+        user1.follow!(user2)
+      end
+
+      it 'trueを返す' do
+        expect(subject).to be true
+      end
+    end
+
+    context 'フォロー関係が存在しない場合' do
+      it 'falseを返す' do
+        expect(subject).to be false
+      end
+    end
+
+    context 'フォロー解除後に確認する場合' do
+      before do
+        user1.follow!(user2)
+        user1.unfollow!(user2)
+      end
+
+      it 'falseを返す' do
+        expect(subject).to be false
+      end
+    end
+
+    context '異なるユーザーをフォローしている場合' do
+      let!(:another_user) { create(:user) }
+
+      before do
+        user1.follow!(another_user)
+      end
+
+      it 'falseを返す' do
+        expect(subject).to be false
+      end
+    end
+  end
 end
