@@ -187,9 +187,29 @@ RSpec.describe User, type: :model do
   end
 
 
-  # describe 'unfollow!' do
+  describe 'unfollow!' do
+    subject { user1.unfollow!(user2) }
+    let!(:user1) { create(:user) }
+    let!(:user2) { create(:user) }
+    let!(:another_user) { create(:user) }
 
-  # end
+    context 'すでにフォロー関係がある場合' do
+      before do
+        user1.follow!(user2)
+      end
+
+      it 'フォロー関係が削除される' do
+        expect { subject }.to change(Relationship, :count).by(-1)
+        expect(user1.has_followed?(user2)).to be false
+      end
+    end
+
+    context 'フォロー関係がない場合' do
+      it '例外が発生する' do
+      expect { subject }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
 
   # describe 'has_followed?' do
 
