@@ -44,6 +44,8 @@ class User < ApplicationRecord
   end
 
   def has_liked?(article)
+    return false if article.nil? #articleがnilの場合falseを返す
+
     likes.exists?(article_id: article.id)
     # current_user.likes.exists?でuserのlikesのなかに、このidの記事が存在するかチェック
   end

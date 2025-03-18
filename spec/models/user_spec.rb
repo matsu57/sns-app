@@ -109,4 +109,87 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe 'has_liked?' do
+    subject { user.has_liked?(article) }
+    let!(:user) { create(:user) }
+    let!(:article) { create(:article) }
+
+    context 'いいねが存在する場合' do
+      before do
+        article.likes.create(user: user)
+      end
+
+      it 'trueを返す' do
+        expect(subject).to be true
+      end
+    end
+
+    context 'いいねが存在しない場合' do
+      it 'falseを返す' do
+        expect(subject).to be false
+      end
+    end
+
+    context '異なるユーザーがいいねをしている場合' do
+      let!(:another_user) { create(:user) }
+
+      before do
+        article.likes.create(user: another_user)
+      end
+
+      it 'falseを返す' do
+        expect(subject).to be false
+      end
+    end
+
+    context 'articleがnilの場合' do
+      let(:article) { nil }
+
+      it 'falseを返す' do
+        expect(subject).to be false
+      end
+    end
+  end
+
+  # describe 'follow!' do
+  #   let!(:user1) { create(:user) }
+  #   let!(:user2) { create(:user) }
+  #   subject { user1.follow!(user2) }
+
+  #   context '正しい情報が与えられた場合' do
+  #     it 'フォロー関係が正常に作成される' do
+  #     expect { subject }.to change(Relationship, :count).by(1) # relationshipレコードが一件増える
+  #     expect(Relationship.last.follower).to eq(user1) # 作成されたレコードのfollowerがuser1である
+  #     expect(Relationship.last.following).to eq(user2) # 作成されたレコードのfollowingがuser2である
+  #     end
+  #   end
+
+  #   context '既にフォローしている場合' do
+  #     before { user1.follow!(user2) }
+
+  #     it '例外が発生すること' do
+  #       expect {
+  #         user1.follow!(user2)
+  #       }.to raise_error(ActiveRecord::RecordInvalid)
+  #     end
+  #   end
+
+  #   context '自分自身をフォローしようとした場合' do
+  #     it '例外が発生すること' do
+  #       expect {
+  #         user1.follow!(user1)
+  #       }.to raise_error(ActiveRecord::RecordInvalid)
+  #     end
+  #   end
+  # end
+
+
+  # describe 'unfollow!' do
+
+  # end
+
+  # describe 'has_followed?' do
+
+  # end
 end
