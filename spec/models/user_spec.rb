@@ -152,37 +152,39 @@ RSpec.describe User, type: :model do
     end
   end
 
-  # describe 'follow!' do
-  #   let!(:user1) { create(:user) }
-  #   let!(:user2) { create(:user) }
-  #   subject { user1.follow!(user2) }
+  describe 'follow!' do
+    subject { user1.follow!(user2) }
+    let!(:user1) { create(:user) }
+    let!(:user2) { create(:user) }
 
-  #   context '正しい情報が与えられた場合' do
-  #     it 'フォロー関係が正常に作成される' do
-  #     expect { subject }.to change(Relationship, :count).by(1) # relationshipレコードが一件増える
-  #     expect(Relationship.last.follower).to eq(user1) # 作成されたレコードのfollowerがuser1である
-  #     expect(Relationship.last.following).to eq(user2) # 作成されたレコードのfollowingがuser2である
-  #     end
-  #   end
+    context '正しい情報が与えられた場合' do
+      it 'フォロー関係が正常に作成される' do
+      expect { subject }.to change(Relationship, :count).by(1) # relationshipレコードが一件増える
+      expect(Relationship.last.follower).to eq(user1) # 作成されたレコードのfollowerがuser1である
+      expect(Relationship.last.following).to eq(user2) # 作成されたレコードのfollowingがuser2である
+      end
+    end
 
-  #   context '既にフォローしている場合' do
-  #     before { user1.follow!(user2) }
+    context '既にフォローしている場合' do
+      before do
+        user1.follow!(user2)
+      end
 
-  #     it '例外が発生すること' do
-  #       expect {
-  #         user1.follow!(user2)
-  #       }.to raise_error(ActiveRecord::RecordInvalid)
-  #     end
-  #   end
+      it '例外が発生する' do
+        expect {
+          subject
+        }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
 
-  #   context '自分自身をフォローしようとした場合' do
-  #     it '例外が発生すること' do
-  #       expect {
-  #         user1.follow!(user1)
-  #       }.to raise_error(ActiveRecord::RecordInvalid)
-  #     end
-  #   end
-  # end
+    context '自分自身をフォローしようとした場合' do
+      it '例外が発生する' do
+        expect {
+          user1.follow!(user1)
+        }.to raise_error(ActiveRecord::RecordInvalid)
+      end
+    end
+  end
 
 
   # describe 'unfollow!' do
