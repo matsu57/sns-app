@@ -7,26 +7,25 @@ RSpec.describe 'Timeline', type: :system do
   let!(:unfollowed_user) { create(:user) }
 
   context 'ログインしていて、followしている人が24時間以内に投稿し、いいねがある場合' do
+    let!(:article1) { create(:article, user: followed_user1, created_at: 25.hours.ago)}
+    let!(:article2) { create(:article, user: followed_user2, created_at: 23.hours.ago)}
+    let!(:article3) { create(:article, user: followed_user1, created_at: 22.hours.ago)}
+    let!(:article4) { create(:article, user: followed_user2, created_at: 23.hours.ago)}
+    let!(:article5) { create(:article, user: unfollowed_user, created_at: 21.hours.ago)}
+
     before do
       login_as(user) #capybaraを使用しているテストでloginの不具合が発生するのでsign_in userを使わず自作のHelperを使用
       visit root_path
       user.follow!(followed_user1)
       user.follow!(followed_user2)
 
-      # テストデータ作成
-      @article1 = create(:article, user: followed_user1, created_at: 25.hours.ago)
-      @article2 = create(:article, user: followed_user2, created_at: 23.hours.ago)
-      @article3 = create(:article, user: followed_user1, created_at: 22.hours.ago)
-      @article4 = create(:article, user: followed_user2, created_at: 23.hours.ago)
-      @article5 = create(:article, user: unfollowed_user, created_at: 21.hours.ago)
-
       # いいねデータ作成
-      create(:like, article: @article2, user: followed_user1, created_at: 22.hours.ago)
-      create(:like, article: @article2, user: user, created_at: 21.hours.ago)
-      create(:like, article: @article2, user: unfollowed_user, created_at: 20.hours.ago)
-      create(:like, article: @article3, user: user, created_at: 15.hours.ago)
-      create(:like, article: @article3, user: followed_user2, created_at: 14.hours.ago)
-      create(:like, article: @article4, user: followed_user1, created_at: 10.hours.ago)
+      create(:like, article: article2, user: followed_user1, created_at: 22.hours.ago)
+      create(:like, article: article2, user: user, created_at: 21.hours.ago)
+      create(:like, article: article2, user: unfollowed_user, created_at: 20.hours.ago)
+      create(:like, article: article3, user: user, created_at: 15.hours.ago)
+      create(:like, article: article3, user: followed_user2, created_at: 14.hours.ago)
+      create(:like, article: article4, user: followed_user1, created_at: 10.hours.ago)
     end
 
     it '正しい数の記事が表示される' do # テスト名を具体的に変更
@@ -40,20 +39,19 @@ RSpec.describe 'Timeline', type: :system do
   end
 
   context 'ログインしていて、followしている人はいるが24時間以内の投稿がない' do
+    let!(:article1) { create(:article, user: followed_user1, created_at: 25.hours.ago)}
+    let!(:article2) { create(:article, user: followed_user2, created_at: 26.hours.ago)}
+
     before do
       login_as(user) #capybaraを使用しているテストでloginの不具合が発生するのでsign_in userを使わず自作のHelperを使用
       visit root_path
       user.follow!(followed_user1)
       user.follow!(followed_user2)
 
-      # テストデータ作成
-      @article1 = create(:article, user: followed_user1, created_at: 25.hours.ago)
-      @article2 = create(:article, user: followed_user2, created_at: 26.hours.ago)
-
       # いいねデータ作成
-      create(:like, article: @article1, user: followed_user1, created_at: 20.hours.ago)
-      create(:like, article: @article1, user: followed_user2, created_at: 16.hours.ago)
-      create(:like, article: @article2, user: unfollowed_user, created_at: 22.hours.ago)
+      create(:like, article: article1, user: followed_user1, created_at: 20.hours.ago)
+      create(:like, article: article1, user: followed_user2, created_at: 16.hours.ago)
+      create(:like, article: article2, user: unfollowed_user, created_at: 22.hours.ago)
     end
 
     it '記事が表示されない' do # テスト名を具体的に変更
@@ -63,20 +61,19 @@ RSpec.describe 'Timeline', type: :system do
   end
 
   context 'ログインしていて、followしている人がいない場合' do
+    let!(:article1) { create(:article, user: followed_user1, created_at: 25.hours.ago)}
+    let!(:article2) { create(:article, user: followed_user2, created_at: 23.hours.ago)}
+    let!(:article3) { create(:article, user: unfollowed_user, created_at: 18.hours.ago)}
+
     before do
       login_as(user) #capybaraを使用しているテストでloginの不具合が発生するのでsign_in userを使わず自作のHelperを使用
       visit root_path
 
-      # テストデータ作成
-      @article1 = create(:article, user: followed_user1, created_at: 25.hours.ago)
-      @article2 = create(:article, user: followed_user2, created_at: 23.hours.ago)
-      @article3 = create(:article, user: unfollowed_user, created_at: 18.hours.ago)
-
       # いいねデータ作成
-      create(:like, article: @article1, user: followed_user1, created_at: 20.hours.ago)
-      create(:like, article: @article1, user: followed_user2, created_at: 16.hours.ago)
-      create(:like, article: @article2, user: unfollowed_user, created_at: 22.hours.ago)
-      create(:like, article: @article3, user: user, created_at: 15.hours.ago)
+      create(:like, article: article1, user: followed_user1, created_at: 20.hours.ago)
+      create(:like, article: article1, user: followed_user2, created_at: 16.hours.ago)
+      create(:like, article: article2, user: unfollowed_user, created_at: 22.hours.ago)
+      create(:like, article: article3, user: user, created_at: 15.hours.ago)
     end
 
     it '記事が表示されない' do # テスト名を具体的に変更
