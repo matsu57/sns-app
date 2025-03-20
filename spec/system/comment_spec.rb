@@ -12,13 +12,13 @@ RSpec.describe 'Comment', type: :system do
     end
 
     it 'コメント一覧が表示される' do
-      find(".article_body_icon_comment a[href='#{article_comments_path(article)}']").click
+      find(".article_body_icon.comment_icon a[href='#{article_comments_path(article)}']").click
       expect(page).to have_css('.header_center p', text: 'Comment')
       expect(page).to have_selector('.comment_content', count: 3)
     end
 
     it '記事にコメント出来る', js: true do
-      find(".article_body_icon_comment a[href='#{article_comments_path(article)}']").click
+      find(".article_body_icon.comment_icon a[href='#{article_comments_path(article)}']").click
       expect(page).to have_css('.header_center p', text: 'Comment')
       fill_in 'comment_content', with: 'post comment test'
       find(".comment_btn").click
@@ -31,7 +31,7 @@ RSpec.describe 'Comment', type: :system do
       mentioned_user = create(:user, username: 'mentioned_user')
       comment_content = '@mentioned_user, this is a test comment'
 
-      find(".article_body_icon_comment a[href='#{article_comments_path(article)}']").click
+      find(".article_body_icon.comment_icon a[href='#{article_comments_path(article)}']").click
       expect(page).to have_css('.header_center p', text: 'Comment')
 
       expect {

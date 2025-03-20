@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     articles.forEach((article) => {
       const articleId = article.dataset.articleId;
-      const activeHeart = article.querySelector(".article_body_icon_heart.active-heart");
-      const inactiveHeart = article.querySelector(".article_body_icon_heart.inactive-heart");
+      const activeHeart = article.querySelector(".article_body_icon.active-heart");
+      const inactiveHeart = article.querySelector(".article_body_icon.inactive-heart");
 
       // サーバーからいいね状態を取得
       axios

@@ -17,16 +17,16 @@
       .article_body_image{class: image_count_class(article, local_assigns[:detail])}
         - article.images.each do |image|
           = image_tag(image)
-    .article_body_icon
-      .article_body_icon_heart.inactive-heart
+    .article_body_icons
+      .article_body_icon.inactive-heart
         = image_tag 'heart.svg'
-      .article_body_icon_heart.active-heart.hidden
+      .article_body_icon.active-heart.hidden
         = image_tag 'heart-active.svg'
-      .article_body_icon_comment
+      .article_body_icon.comment_icon
         = link_to article_comments_path(article) do
           = image_tag 'comment.svg'
           = comments_count_display(article)
-      .article_body_icon_share
+      .article_body_icon
         = link_to "https://twitter.com/share?url=#{article_url(article)}%0a%0a#{article.content}", target: '_blank', data: { toggle: "tooltip", placement: "bottom" }, title: "Xでシェア" do
           = image_tag 'share.svg'
     .article_body_likeCount
