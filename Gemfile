@@ -41,6 +41,8 @@ gem 'faker'
 gem 'hamlit'
 gem 'image_processing', '~> 1.2'
 gem 'sidekiq'
+gem 'aws-sdk-s3', require: false
+gem 'aws-sdk-core'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
