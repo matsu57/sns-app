@@ -20,8 +20,8 @@ RSpec.describe 'Profile', type: :system do
     it '自分のプロフィールが表示される' do
       find(".article[data-article-id='#{article.id}'] .article_header").click
       expect(page).to have_css('.header_center', text: user.username)
-      expect(page).to have_css('.profile_body_basicInfo_followers', text: '1')
-      expect(page).to have_css('.profile_body_basicInfo_following', text: '1')
+      expect(page).to have_css('.followers-count', text: '1')
+      expect(page).to have_css('.following-count', text: '1')
     end
 
     it 'profile画像を更新できる', js: true do
@@ -56,7 +56,7 @@ RSpec.describe 'Profile', type: :system do
       click_on 'Follow'
       expect(page).not_to have_button('Follow')
       expect(page).to have_button('Unfollow')
-      expect(page).to have_css('.profile_body_basicInfo_followers', text: '1', wait: 5)
+      expect(page).to have_css('.followers-count', text: '1', wait: 5)
       # ページをリロード
       visit current_path
       expect(page).to have_css("a[href='#{account_follows_path(other_user, tab: 'Followers')}']")
@@ -71,7 +71,7 @@ RSpec.describe 'Profile', type: :system do
     it 'followerを確認する' do
       find(".article[data-article-id='#{article.id}'] .article_header").click
       expect(page).to have_css('.header_center', text: user.username)
-      expect(page).to have_css('.profile_body_basicInfo_followers', text: '1', wait: 5)
+      expect(page).to have_css('.followers-count', text: '1', wait: 5)
       find("a[href='#{account_follows_path(user, tab: 'Followers')}']").click
       expect(page).to have_content(follower_user.username)
     end
@@ -79,7 +79,7 @@ RSpec.describe 'Profile', type: :system do
     it 'followingを確認する' do
       find(".article[data-article-id='#{article.id}'] .article_header").click
       expect(page).to have_css('.header_center', text: user.username)
-      expect(page).to have_css('.profile_body_basicInfo_followers', text: '1', wait: 5)
+      expect(page).to have_css('.followers-count', text: '1', wait: 5)
       find("a[href='#{account_follows_path(user, tab: 'Following')}']").click
       expect(page).to have_content(following_user.username)
     end
@@ -91,7 +91,7 @@ RSpec.describe 'Profile', type: :system do
       click_on 'Unfollow'
       expect(page).not_to have_button('Unfollow')
       expect(page).to have_button('Follow')
-      expect(page).to have_css('.profile_body_basicInfo_followers', text: '0', wait: 5)
+      expect(page).to have_css('.followers-count', text: '0', wait: 5)
       # ページをリロード
       visit current_path
       expect(page).not_to have_css("a[href='#{account_follows_path(following_user, tab: 'Followers')}']")

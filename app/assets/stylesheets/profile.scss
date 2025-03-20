@@ -46,27 +46,26 @@ $image_size: 77px;
       }
     }
 
-    &_basicInfo {
+    &_info-list {
       margin-top: 43px;
       margin-bottom: 42px;
       display: flex;
       justify-content: center;
       text-align: center;
-
-      &_post, &_followers, &_following{
-        span {
-          margin-top: -3px;
-          color: #9E9E9E;
-          font-size: 14px;
-        }
+    }
+    &_info-item {
+      span {
+        margin-top: -3px;
+        color: #9E9E9E;
+        font-size: 14px;
       }
-      &_post {
-        padding-left: 16px;
-        margin-right: 39px;
-      }
-      &_followers {
-        margin-right: 31px;
-      }
+    }
+    .post-count {
+      padding-left: 16px;
+      margin-right: 39px;
+    }
+    .followers-count {
+      margin-right: 31px;
     }
   }
 }
