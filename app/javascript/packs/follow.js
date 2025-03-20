@@ -22,7 +22,7 @@ const handleFollowAction = (accountId, action) => {
     .then((response) => {
       if (response.data.status === "ok") {
         handleFollowDisplay(action === "follow");
-        $(".profile_body_basicInfo_followers p").text(response.data.followersCount);
+        $(".followers-count p").text(response.data.followersCount);
       }
     })
     .catch((e) => {

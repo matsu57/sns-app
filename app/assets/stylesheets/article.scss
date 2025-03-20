@@ -53,20 +53,23 @@ article:first-child {
         object-fit: cover;
       }
     }
-
-    &_icon {
+    &_icons {
       margin-top: 12px;
       display: flex;
       gap: 14px;
       height: $icon-size;
-
-      &_heart, &_comment, &_share {
-        img {
-          height: inherit;
-        }
+    }
+    &_icon {
+      img {
+        height: inherit;
       }
-
-      &_comment {
+    }
+    .inactive-heart, .active-heart {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .comment_icon {
         a {
           display: flex;
 
@@ -75,7 +78,6 @@ article:first-child {
           }
         }
       }
-    }
     &_likeCount {
       margin-top: 8px;
     }

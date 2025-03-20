@@ -21,11 +21,11 @@
           = f.file_field :avatar, style: 'display: none;', id: 'avatar-input', accept: 'image/*'
       - else
         = image_tag @user.avatar_image
-    .profile_body_basicInfo
-      .profile_body_basicInfo_post
+    .profile_body_info-list
+      .profile_body_info-item.post-count
         %p= @user.articles.count
         %span Posts
-      .profile_body_basicInfo_followers
+      .profile_body_info-item.followers-count
         - if @user.followers.count > 0
           = link_to account_follows_path(@user, tab: 'Followers')  do
             %p= @user.followers.count
@@ -33,7 +33,7 @@
         - else
           %p= 0
           %span Followers
-      .profile_body_basicInfo_following
+      .profile_body_info-item.following-count
         - if @user.followings.count > 0
           = link_to account_follows_path(@user, tab: 'Following') do
             %p= @user.followings.count
