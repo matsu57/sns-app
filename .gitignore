@@ -44,3 +44,5 @@ yarn-debug.log*
 *.code-workspace
 
 dump.rdb
+
+.env

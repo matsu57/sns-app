@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // バリデーションエラーでarticles/newがarticlesに変化してしまうことの対策
+  //バリデーションエラーでarticles/newがarticlesに変化してしまうことの対策
   if (document.querySelector(".error_messages")) {
     history.replaceState("", "", "/articles/new");
   }

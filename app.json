@@ -1,0 +1,16 @@
+{
+  "name": "sns app",
+  "description": "This is snsapp",
+  "keywords": [],
+  "website": "",
+  "repository": "https://github.com/matsu57/sns-app",
+  "env": {},
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ],
+  "buildpacks": [{
+    "url": "heroku/nodejs"
+  }, {
+    "url": "heroku/ruby"
+  }]
+}
