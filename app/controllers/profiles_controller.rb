@@ -9,29 +9,16 @@ class ProfilesController < ApplicationController
   def update
     @profile = current_user.prepare_profile
     @profile.assign_attributes(profile_params)
-    begin
-      if @profile.save
-        flash[:notice] = 'プロフィール更新完了'
-      else
-        flash[:error] = 'プロフィール更新に失敗しました'
-        # エラーメッセージも含める
-        flash[:errors] = @profile.errors.full_messages.join(', ')
-      end
-      redirect_to profile_path
-    rescue => e
-      Rails.logger.error "Unexpected error in profile creation: #{e.message}"
-      Rails.logger.error "#{e.backtrace.join("\n")}"
-      redirect_to profile_path, alert: '保存中にエラーが発生しました'
+    if @profile.save
+      flash[:notice] = 'プロフィール更新完了'
+    else
+      # flash[:error] = 'プロフィール更新に失敗しました'
+      # エラーメッセージも含める
+      # flash[:errors] = @profile.errors.full_messages.join(', ')
+      logger.error "プロファイル更新失敗: #{@profile.errors.full_messages}"
+      render json: { errors: @profile.errors.full_messages }, status: :unprocessable_entity
     end
-
-    # if @profile.save
-    #   flash[:notice] = 'プロフィール更新完了'
-    # else
-    #   flash[:error] = 'プロフィール更新に失敗しました'
-    #   # エラーメッセージも含める
-    #   flash[:errors] = @profile.errors.full_messages.join(', ')
-    # end
-    # redirect_to profile_path
+    redirect_to profile_path
   end
 
   private
