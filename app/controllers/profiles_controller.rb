@@ -16,9 +16,9 @@ class ProfilesController < ApplicationController
       # エラーメッセージも含める
       # flash[:errors] = @profile.errors.full_messages.join(', ')
       logger.error "プロファイル更新失敗: #{@profile.errors.full_messages}"
-      render json: { errors: @profile.errors.full_messages }, status: :unprocessable_entity
+      ender :edit, status: :unprocessable_entity
     end
-    redirect_to profile_path
+    # redirect_to profile_path
   end
 
   private
