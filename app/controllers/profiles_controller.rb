@@ -41,13 +41,13 @@ class ProfilesController < ApplicationController
   end
 
   private
-  # def profile_params
-  #   params.require(:profile).permit(:avatar)
-  # end
   def profile_params
     params.require(:profile).permit(:avatar)
-  rescue ActionController::ParameterMissing
-    params.permit(:avatar)
   end
+  # def profile_params
+  #   params.require(:profile).permit(:avatar)
+  # rescue ActionController::ParameterMissing
+  #   params.permit(:avatar)
+  # end
 
 end
