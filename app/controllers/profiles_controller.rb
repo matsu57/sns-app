@@ -34,7 +34,8 @@ class ProfilesController < ApplicationController
       Rails.logger.error "Unexpected error in profile update: #{e.message}"
       Rails.logger.error "Error class: #{e.class}"
       Rails.logger.error e.backtrace.join("\n")
-      Rails.logger.error "Parameters: #{params.inspect}"
+      Rails.logger.debug "Received params: #{params.inspect}"
+      Rails.logger.debug "Permitted params: #{profile_params.inspect}"
       redirect_to profile_path, alert: '予期せぬエラーが発生しました'
     end
   end
