@@ -1,7 +1,7 @@
-// import axios from "axios";
-// import { csrfToken } from "rails-ujs";
+import axios from "axios";
+import { csrfToken } from "rails-ujs";
 
-// axios.defaults.headers.common["X-CSRF-Token"] = csrfToken();
+axios.defaults.headers.common["X-CSRF-Token"] = csrfToken();
 
 document.addEventListener("DOMContentLoaded", () => {
   // avatar画像の変更
@@ -14,11 +14,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // 画像が選択されたら自動的にアップロード
+    // avatarInput.addEventListener("change", () => {
+    //   if (avatarInput.files && avatarInput.files[0]) {
+    //     const form = avatarInput.closest("form");
+    //     // form.submit();
+    //   }
+    // });
     avatarInput.addEventListener("change", () => {
       if (avatarInput.files && avatarInput.files[0]) {
         const form = avatarInput.closest("form");
-        // form.submit();
-        form.dispatchEvent(new Event("submit"));
+        form.onsubmit = () => true; // submitイベントを確実に処理
+        form.dispatchEvent(
+          new Event("submit", {
+            bubbles: true,
+            cancelable: true,
+          })
+        );
       }
     });
   }
