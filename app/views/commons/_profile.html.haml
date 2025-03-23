@@ -17,11 +17,8 @@
     .profile_body_userImage
       - if @user == current_user
         = image_tag @user.avatar_image, class: 'current', id: 'avatar-preview'
-        -# = form_with(model: @profile, url: profile_path, method: 'put', local: true) do |f|
-          -# = f.file_field :avatar, style: 'display: none;', id: 'avatar-input', accept: 'image/*'
         = form_with(model: @profile, url: profile_path, method: 'put', local: true, multipart: true) do |f|
           = f.file_field :avatar, style: 'display: none;', id: 'avatar-input', accept: 'image/*'
-
       - else
         = image_tag @user.avatar_image
     .profile_body_info-list
