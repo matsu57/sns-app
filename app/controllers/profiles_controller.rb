@@ -35,7 +35,7 @@ class ProfilesController < ApplicationController
       Rails.logger.error "Error class: #{e.class}"
       Rails.logger.error e.backtrace.join("\n")
       Rails.logger.error "Parameters: #{params.inspect}"
-      redirect_to root_path, alert: '予期せぬエラーが発生しました'
+      redirect_to profile_path, alert: '予期せぬエラーが発生しました'
     end
   end
 
