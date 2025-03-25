@@ -1,3 +1,8 @@
+import axios from "axios";
+import { csrfToken } from "rails-ujs";
+
+axios.defaults.headers.common["X-CSRF-Token"] = csrfToken();
+
 document.addEventListener("DOMContentLoaded", () => {
   // avatar画像の変更
   const avatarPreview = document.getElementById("avatar-preview");

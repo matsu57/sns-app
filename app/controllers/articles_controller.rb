@@ -13,20 +13,32 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
-  def create
+    def create
     @article = current_user.articles.build(article_params)
-    if @article.save
-      redirect_to root_path, notice: '保存しました'
-    else
-      flash.now[:error] = '保存に失敗しました'
-      render :new
+    begin
+      if @article.save # ここで何らかのエラーが発生していそう
+        redirect_to root_path, notice: '保存しました'
+      else
+        flash.now[:error] = '保存に失敗しました'
+        render :new
+      end
+    rescue => e # beginの中でエラーが発生した場合はこちらの処理が実行される
+      Rails.logger.error "Unexpected error in article creation: #{e.message}"
+      Rails.logger.error "#{e.backtrace.join("\n")}"
+      redirect_to root_path, alert: '保存中にエラーが発生しました'
     end
   end
 
   def destroy
-    article = current_user.articles.find(params[:id])
-    article.destroy!
-    redirect_to root_path, notice: '削除できました'
+      article = current_user.articles.find(params[:id])
+    begin
+      article.destroy! # ここで何らかのエラーが発生していそう
+      redirect_to root_path, notice: '削除できました'
+    rescue => e # beginの中でエラーが発生した場合はこちらの処理が実行される
+      Rails.logger.error "Unexpected error in article deletion: #{e.message}"
+      Rails.logger.error "#{e.backtrace.join("\n")}"
+      redirect_to root_path, alert: '削除中にエラーが発生しました'
+    end
   end
 
   private
